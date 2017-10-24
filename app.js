@@ -1,4 +1,4 @@
-angular.module('sampleApp', ['ui.router', 'AdminModule'])
+angular.module('nwookManager', ['ui.router', 'AdminModule'])
 
 .config(function($stateProvider, $urlRouterProvider) {
     
