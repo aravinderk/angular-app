@@ -86,7 +86,7 @@ input[type=text], textarea {
   border: 1px solid #D8D8D8;
   width: 100%;
   padding: 10px;
-  font-size: 13px
+  font-size: 14px
 }
 textarea { resize: none; }
 .form-item {
@@ -97,7 +97,39 @@ textarea { resize: none; }
 .text-center { text-align: center; }
 .error { color: red; font-size: 12px;}
 .fieldError input[type=text],
-.fieldError textarea{ border-color: red; }
+.fieldError textarea,
+.fieldError .nwook-dropdown button { border-color: red; }
+
+/* dropdown styles start */
+.nwook-dropdown .dropdown-toggle {
+    border: 1px solid #D8D8D8;
+    height: 36px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    background: transparent;
+    width: 100%;
+}
+.nwook-dropdown .dropdown-toggle .caret {
+    border-top: 6px dashed;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+}
+.nwook-dropdown .dropdown-menu { 
+    border-radius: 0px;     
+    max-height: 250px;
+    overflow: auto;
+}
+.nwook-dropdown .dropdown-menu > li > a:focus, 
+.nwook-dropdown .dropdown-menu > li > a:hover {
+    color: #FFF;
+    background-color: #47D7AC;
+    outline: none;
+}
+  /* dropdown styles end */
+
 /* common styles ends here */
 
 /* Left container styles starts from here */
