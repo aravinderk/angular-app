@@ -9,11 +9,12 @@ function AdminController($scope, AdminService, $state){
 	$scope.routes = AdminService.routes;
 	$scope.cityList = AdminService.getCities();
 	$scope.stateList = AdminService.getStates();
+	$scope.categoryList = AdminService.getCategoryList();
 	$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
 	$scope.showSpaceImg = false;
 	$scope.formData = {
 		basicInfo: {},
-		facilityAndTags: {},
+		facilityAndTags: {associatedCategory: []},
 		addOns: {},
 		engineInfo: {},
 		configuration: {},
@@ -37,6 +38,7 @@ function AdminController($scope, AdminService, $state){
 				return;
 			}
 			console.log('form data', $scope.formData);
+			$scope.spaceForm.$submitted = false;
 			$scope.pageIndex++;
 			$state.go($scope.routes[$scope.pageIndex], {}, { location: true });
 		}
