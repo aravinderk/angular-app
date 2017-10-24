@@ -1,53 +1,62 @@
-<div class="form-item">
-    <div class="label">Name of the Space</div>
-    <div class="help-text">Enter the name of the space. In case of multiple loctions, enter as &#60;SpaceName&#62;-&#60;Location&#62;</div>
-    <input type="text" />
-</div>
 
-<div class="form-item">
-    <div class="label">Details</div>
-    <div class="help-text">Describe the places and its unique offerings.</div>
-    <textarea rows="5"></textarea>
-</div>
-
-<div class="address-item">
-    <div class="form-item">
-        <div class="label">Address</div>
-        <div class="help-text">Street</div>
-        <input type="text" />
+    <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.spaceName.$error.required)}">
+        <div class="label">Name of the Space</div>
+        <div class="help-text">Enter the name of the space. In case of multiple loctions, enter as &#60;SpaceName&#62;-&#60;Location&#62;</div>
+        <input type="text" ng-model="formData.basicInfo.spaceName" name="spaceName" required />
+        <div class="error" ng-show="spaceForm.$submitted && spaceForm.spaceName.$error.required">Please enter space name.</div>
     </div>
 
-    <div class="form-item">
-        <div class="label">&nbsp;</div>
-        <div class="help-text">City</div>
-        <input type="text" />
+    <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.spaceDescription.$error.required)}">
+        <div class="label">Details</div>
+        <div class="help-text">Describe the places and its unique offerings.</div>
+        <textarea rows="5" name="spaceDescription" ng-model="formData.basicInfo.spaceDescription" required></textarea>
+        <div class="error" ng-show="spaceForm.$submitted && spaceForm.spaceDescription.$error.required">Please enter space description.</div>
     </div>
 
-    <div class="form-item">
-        <div class="label">&nbsp;</div>
-        <div class="help-text">State</div>
-        <input type="text" />
-    </div>
+    <div class="address-item">
+        <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.street.$error.required)}">
+            <div class="label">Address</div>
+            <div class="help-text">Street</div>
+            <input type="text" name="street" ng-model="formData.basicInfo.street" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.street.$error.required">Please enter street.</div>
+        </div>
 
-    <div class="form-item">
-        <div class="label">&nbsp;</div>
-        <div class="help-text">Pincode</div>
-        <input type="text" />
-    </div>
-</div>
-<div class="clear"></div>
+        <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.city.$error.required)}">
+            <div class="label">&nbsp;</div>
+            <div class="help-text">City</div>
+            <input type="text" name="city" ng-model="formData.basicInfo.city" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.city.$error.required">Please enter city.</div>
+        </div>
 
-<div class="location-item">
-    <div class="form-item">
-        <div class="label">Landmark</div>
-        <div class="help-text">A well-known property/location nearby</div>
-        <input type="text" />
-    </div>
+        <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.state.$error.required)}">
+            <div class="label">&nbsp;</div>
+            <div class="help-text">State</div>
+            <input type="text" name="state" ng-model="formData.basicInfo.state" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.state.$error.required">Please enter state.</div>
+        </div>
 
-    <div class="form-item">
-        <div class="label">Location on google maps</div>
-        <div class="help-text">Type to search</div>
-        <input type="text" />
+        <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.pincode.$error.required)}">
+            <div class="label">&nbsp;</div>
+            <div class="help-text">Pincode</div>
+            <input type="text" name="pincode" ng-model="formData.basicInfo.pincode" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.pincode.$error.required">Please enter pincode.</div>
+        </div>
     </div>
-</div>
+    <div class="clear"></div>
+
+    <div class="location-item">
+        <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.landmark.$error.required)}">
+            <div class="label">Landmark</div>
+            <div class="help-text">A well-known property/location nearby</div>
+            <input type="text" name="landmark" ng-model="formData.basicInfo.landmark" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.landmark.$error.required">Please enter landmark.</div>
+        </div>
+
+        <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.locationOnMap.$error.required)}">
+            <div class="label">Location on google maps</div>
+            <div class="help-text">Type to search</div>
+            <input type="text" name="locationOnMap" ng-model="formData.basicInfo.locationOnMap" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.locationOnMap.$error.required">Please enter locationOnMap.</div>
+        </div>
+    </div>
 <div class="clear"></div>
