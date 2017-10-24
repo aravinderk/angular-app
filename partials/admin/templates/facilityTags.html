@@ -1,8 +1,9 @@
 <div ng-hide="showSpaceImg">
-    <div class="form-item">
+    <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.category.$error.required)}">
         <div class="label">Category</div>
         <div class="help-text">Select category to associate to from the dropdown below.</div>
-        <input type="text" />
+        <nwook-dropdown id="categoryDropdown" items="categoryList" name="category" model="formData.facilityAndTags.category" required="true"></nwook-dropdown>
+        <div class="error" ng-show="spaceForm.$submitted && spaceForm.category.$error.required">Please select category.</div>
     </div>
 
     <div class="form-item">
@@ -18,16 +19,18 @@
         </div>
     </div>
 
-    <div class="form-item">
+    <div class="form-item" style="width: 40%;" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.associatedCategory.$error.required && formData.facilityAndTags.associatedCategory.length <= 0)}">
         <div class="label">Select associated categories</div>
         <div class="help-text"></div>
-        <input type="text" />
+        <nwook-filter-dropdown id="associatedCategoryDropdown" items="categoryList" name="associatedCategory" model="formData.facilityAndTags.associatedCategory" required="true"></nwook-filter-dropdown>
+        <div class="error" ng-show="spaceForm.$submitted && spaceForm.associatedCategory.$error.required && formData.facilityAndTags.associatedCategory.length <= 0">Please select associated category.</div>
     </div>
 
-    <div class="form-item">
+    <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.keywordTags.$error.required)}">
         <div class="label">Keywords/Tags</div>
         <div class="help-text">Add keywords separated by comma</div>
-        <textarea rows="5"></textarea>
+        <textarea rows="5" name="keywordTags" ng-model="formData.facilityAndTags.keywordTags" required></textarea>
+        <div class="error" ng-show="spaceForm.$submitted && spaceForm.keywordTags.$error.required">Please enter Keywords/Tags.</div>
     </div>
 </div>
 
