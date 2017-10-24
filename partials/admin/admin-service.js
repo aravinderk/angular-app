@@ -32,7 +32,27 @@ function AdminService(){
             'admin.policies',
             'admin.promotions',
             'admin.complete'
-        ]
+        ],
+        getCities: function () {
+            return [
+                'Hyderabad',
+                'Chennai',
+                'Mumbai',
+                'Pune',
+                'bangalore',
+                'Delhi'
+            ];
+        },
+        getStates: function () {
+            return [
+                'Andhrapradesh',
+                'Telangana',
+                'Delhi',
+                'karnataka',
+                'Maharastra',
+                'Tamilnadu'
+            ];
+        }
     }
     
     return service;
