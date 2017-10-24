@@ -7,6 +7,8 @@ function AdminController($scope, AdminService, $state){
 	$scope.statusMenuItems = AdminService.statusMenuItems;
 	$scope.leftMenuItems = AdminService.leftMenuItems;
 	$scope.routes = AdminService.routes;
+	$scope.cityList = AdminService.getCities();
+	$scope.stateList = AdminService.getStates();
 	$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
 	$scope.showSpaceImg = false;
 	$scope.formData = {
