@@ -1,17 +1,48 @@
-<div id="container">
-    <div id="left-container">
-
-        <div class="tab-item" ng-repeat="item in menuItems" ng-class="{'visited': ($index <= $parent.pageIndex)}">
-            <div class="circle"></div>
-            <div>{{item.text}}</div>
-            <div class="line"></div>
+<div id="container" class="container-fluid">
+    <!-- App header -->
+    <div class="row-fluid" id="app-header">
+        <div class="col-xs-12">
+            <h2>Header</h2>
         </div>
     </div>
-    <div id="right-container">
-        <div id="form-container" ui-view></div>
-        <div id="buttonContainer" ng-if="pageIndex < routes.length-1">
-            <button type="button" class="button" ng-click="saveAsDraft()">Save as draft</button>
-            <button type="button" class="button btn-green" ng-click="handleNext()">Next</button>
+
+    <div class="row-fluid">     
+        <!-- Left Menu items with tooltip -->
+        <div class="col-xs-3" id="left-menu">
+            <div class="menu-item" ng-repeat="item in leftMenuItems">
+                <img ng-src="{{item.icon}}" />
+                <div class="tooltip right" role="tooltip"> 
+                    <div class="tooltip-arrow"></div> 
+                    <div class="tooltip-inner">
+                        <div>{{item.title}}</div>
+                        <div class="tiny-text">{{item.helpText}}</div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <!-- staus indicator -->
+        <div class="col-xs-1" id="status-indicator">
+            <div id="left-container">
+                <div class="tab-item" ng-repeat="item in statusMenuItems" ng-class="{'visited': ($index <= $parent.pageIndex)}">
+                    <div class="circle"></div>
+                    <div>{{item.text}}</div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right container which holds the entire form -->
+        <div class="col-xs-8" id="right-wrapper">
+            <div id="right-container">
+                <form name="spaceForm" role="form" novalidate="novalidate" ng-submit="spaceForm.$valid && handleNext()">
+                    <div id="form-container" ui-view></div>
+                    <div id="buttonContainer" ng-if="pageIndex < routes.length-1">
+                        <button type="button" class="button" ng-click="saveAsDraft()">Save as draft</button>
+                        <button type="submit" class="button btn-green">Next</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
