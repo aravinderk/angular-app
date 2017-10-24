@@ -1,4 +1,5 @@
 angular.module('AdminModule', [
     'AdminControllerModule',
-    'AdminServiceModule'
+    'AdminServiceModule',
+    'AdminDirectiveModule'
 ]);
