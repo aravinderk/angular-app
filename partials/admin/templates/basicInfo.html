@@ -24,15 +24,15 @@
         <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.city.$error.required)}">
             <div class="label">&nbsp;</div>
             <div class="help-text">City</div>
-            <input type="text" name="city" ng-model="formData.basicInfo.city" required />
-            <div class="error" ng-show="spaceForm.$submitted && spaceForm.city.$error.required">Please enter city.</div>
+            <nwook-dropdown id="cityDropdown" items="cityList" name="city" model="formData.basicInfo.city" required="true"></nwook-dropdown>
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.city.$error.required">Please select city.</div>
         </div>
 
         <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.state.$error.required)}">
             <div class="label">&nbsp;</div>
             <div class="help-text">State</div>
-            <input type="text" name="state" ng-model="formData.basicInfo.state" required />
-            <div class="error" ng-show="spaceForm.$submitted && spaceForm.state.$error.required">Please enter state.</div>
+            <nwook-dropdown id="stateDropdown" items="stateList" name="state" model="formData.basicInfo.state" required="true"></nwook-dropdown>
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.state.$error.required">Please select state.</div>
         </div>
 
         <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.pincode.$error.required)}">
