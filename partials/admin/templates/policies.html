@@ -1,1 +1,82 @@
-<h2>Policies</h2>
+<div class="heading-n">Timing and cancellation policies</div>
+<div class="row">
+    <div class="form-item col-xs-4">
+        <div class="label">Total operating hours</div>
+        <div class="help-text">Enter # of hours per day</div>
+        <nwook-counter name="operatingHr" model="formData.policies.operatingHr" unit="hours" min="0" max="23" step="1"></nwook-counter>
+    </div>
+
+    <div class="form-item col-xs-4">
+        <div class="label">Minimum Duration</div>
+        <div class="help-text">Enter min. booking slot size</div>
+        <nwook-counter name="minDuration" model="formData.policies.minDuration" unit="mins" default-val="15" min="0" max="59" step="15"></nwook-counter>
+    </div>
+
+    <div class="form-item col-xs-4">
+        <div class="label">Maximum Duration</div>
+        <div class="help-text">Enter max. booking slot size</div>
+        <nwook-counter name="maxDuration" model="formData.policies.maxDuration" unit="mins" min="0" max="59" step="15"></nwook-counter>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-item col-xs-4">
+        <div class="label">Booking Notice</div>
+        <div class="help-text">Enter the time before next booking starts</div>
+        <nwook-counter name="bookingNotice" model="formData.policies.bookingNotice" unit="mins" default-val="15" min="0" max="59" step="15"></nwook-counter>
+    </div>
+
+    <div class="form-item col-xs-4">
+        <div class="label">Booking window</div>
+        <div class="help-text">Enter the # of days</div>
+        <nwook-counter name="bookingWindow" model="formData.policies.bookingWindow" unit="day(s)" min="0" max="90" step="1"></nwook-counter>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-item col-xs-12">
+        <div class="label">cancellation charges</div>
+        <div class="help-text">Fee % of booking amount</div>
+        <div class="row">
+            <div class="col-xs-2">
+                <input type="text" ng-model="formData.policies.cancellationCharge" name="cancellationCharge" placeholder="Eg. 15%" />
+            </div>
+            <div class="col-xs-2 padding0">
+                <span style="font-size: 12px; line-height: 36px;">If cancelled before</span>
+            </div>
+            <div class="col-xs-4">
+                <nwook-counter name="cancellationNoticeTime" model="formData.policies.cancellationNoticeTime" unit="mins" min="15" max="59" step="15"></nwook-counter>
+            </div>
+        </div>
+    </div>
+    <div class="form-item col-xs-2">
+        <nwook-dropdown id="cancellationOperator" items="cancellationOperator" name="cancellationOperator" model="formData.policies.cancellationOperator"></nwook-dropdown>
+    </div>
+    <div class="form-item col-xs-4">
+        <button type="button" class="button btn-round btn-light-green-plain" style="width: 100%;">+ Click to insert another</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-item col-xs-12">
+        <div class="label">No show policy</div>
+        <div class="help-text">Enter % deduction for no show scenario based on the rule</div>
+        <div class="row">
+            <div class="col-xs-2">
+                <input type="text" ng-model="formData.policies.deduction" name="deduction" placeholder="Eg. 100%" />
+            </div>
+            <div class="col-xs-1 padding0">
+                <span style="font-size: 12px; line-height: 36px;">if no-show</span>
+            </div>
+            <div class="col-xs-4">
+                <nwook-counter name="deductionTime" model="formData.policies.deductionTime" unit="mins" min="15" max="59" step="15"></nwook-counter>
+            </div>
+            <div class="col-xs-4">
+                <nwook-dropdown id="deductionType" items="deductionType" name="deductionType" model="formData.policies.deductionType"></nwook-dropdown>
+            </div>
+        </div>
+    </div>
+    <div class="form-item col-xs-4">
+        <button type="button" class="button btn-round btn-light-green-plain" style="width: 100%;">+ Click to insert another</button>
+    </div>
+</div>
