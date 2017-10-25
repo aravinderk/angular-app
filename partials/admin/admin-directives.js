@@ -17,7 +17,7 @@ function nwookDropdown () {
 		controller: function ($scope) {
 			$scope.change = function (e, item) {
 				e.preventDefault();
-				$scope.model = item;
+				$scope.model = item.id;
 			}
 		},
 		template: '<div class="dropdown nwook-dropdown">'+
@@ -26,7 +26,7 @@ function nwookDropdown () {
 						'<span class="caret"></span>'+
 					'</button>'+
 					'<ul class="dropdown-menu" aria-labelledby="{{id}}">'+
-						'<li ng-repeat="item in items"><a href="#" ng-click="change($event, item)">{{item}}</a></li>'+
+						'<li ng-repeat="item in items"><a href="#" ng-click="change($event, item)">{{item.name}}</a></li>'+
 					'</ul>'+
 				'</div>'+
 				'<input type="text" name="{{name}}" ng-model="model" hidden ng-required="{{required}}" />'
@@ -62,13 +62,13 @@ function nwookFilterDropdown () {
 		template: '<div class="dropdown nwook-dropdown">'+
 					'<div class="dropdown-toggle" id="{{id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'+
 						'<span class="dropdown-tag" ng-repeat="item in model">'+
-							'{{item}} <span class="tag-close" ng-click="removeTag(item)">X</span>'+
+							'{{item.name}} <span class="tag-close" ng-click="removeTag(item)">X</span>'+
 						'</span>'+	
 						'<input type="text" ng-model="searchStr" />'+
 						'<span class="caret"></span>'+
 					'</div>'+
 					'<ul class="dropdown-menu" aria-labelledby="{{id}}">'+
-						'<li ng-repeat="item in items | filter: searchStr" ng-class="{\'disabled\': model.indexOf(item) > -1}"><a href="#" ng-click="change($event, item)">{{item}}</a></li>'+
+						'<li ng-repeat="item in items | filter: searchStr" ng-class="{\'disabled\': model.indexOf(item) > -1}"><a href="#" ng-click="change($event, item)">{{item.name}}</a></li>'+
 					'</ul>'+
 				'</div>'+
 				'<input type="text" name="{{name}}" ng-model="model" hidden ng-required="{{required}}" />'

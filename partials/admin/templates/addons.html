@@ -23,14 +23,11 @@
                 </select>
         </div>
         </div>
-        <div class="form-item col-lg-3">
+        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.serviceType.$error.required)}">
         <div class="label">Free or paid</div>
         <div class="">
-                <select>
-                    <option value="select">select</option>
-                    <option value="free">Free</option>
-                    <option value="paid">Paid</option>
-                </select>
+               <nwook-dropdown id="serviceType" items="serviceTypeList" name="serviceType" model="formData.addOns.serviceType" required="true"></nwook-dropdown>
+               <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType.$error.required">Please select Free/Paid.</div>
         </div>
         </div>
     </div>

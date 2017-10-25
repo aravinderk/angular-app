@@ -10,6 +10,7 @@ function AdminController($scope, AdminService, $state){
 	$scope.cityList = AdminService.getCities();
 	$scope.stateList = AdminService.getStates();
 	$scope.categoryList = AdminService.getCategoryList();
+	$scope.serviceTypeList = AdminService.getServiceType();
 	$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
 	$scope.showSpaceImg = false;
 	$scope.formData = {

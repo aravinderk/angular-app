@@ -35,31 +35,38 @@ function AdminService(){
         ],
         getCities: function () {
             return [
-                'Hyderabad',
-                'Chennai',
-                'Mumbai',
-                'Pune',
-                'bangalore',
-                'Delhi'
+                {id:'Hyderabad',name:'Hyderabad'},
+                {id:'Chennai',name:'Chennai'},
+                {id:'Mumbai',name:'Mumbai'},
+                {id:'Pune',name:'Pune'},
+                {id:'bangalore',name:'bangalore'},
+                {id:'Delhi',name:'Delhi'}
             ];
         },
         getStates: function () {
             return [
-                'Andhrapradesh',
-                'Telangana',
-                'Delhi',
-                'karnataka',
-                'Maharastra',
-                'Tamilnadu'
+                {id:'Andhrapradesh',name:'Andhrapradesh'},
+                {id:'Telangana',name:'Telangana'},
+                {id:'Delhi',name:'Delhi'},
+                {id:'karnataka',name:'karnataka'},
+                {id:'Maharastra',name:'Maharastra'},
+                {id:'Tamilnadu',name:'Tamilnadu'}
             ];
         },
         getCategoryList: function () {
             return [
-                'category 1',
-                'category 2',
-                'category 3',
-                'category 4',
+                 {id:'category 1',name:'category 1'},
+                 {id:'category 2',name:'category 2'},
+                 {id:'category 3',name:'category 3'},
+                 {id:'category 4',name:'category 4'}
             ]
+        },
+        getServiceType: function(){
+            return[
+                {id:'Free',name:'Free'},
+                {id:'Paid',name:'Paid'}
+            ]
+
         }
     }
     
