@@ -19,9 +19,11 @@ function AdminController($scope, AdminService, $state){
 		engineInfo: {},
 		configuration: {},
 		timings: {},
-		policies: {},
-		promotions: {}
+		policies: {cancellationOperator: 'AND'},
+		promotions: {applicable1: [], applicable: []}
 	};
+
+	$scope.cancellationOperator = ['AND', 'OR'];
 
 	// Functions in $scope
 	$scope.handleNext = HandleNext;
