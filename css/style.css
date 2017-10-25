@@ -61,10 +61,15 @@ img {font-size: 0;}
   border: 1px solid #47D7AC;
   color: #FFF;
 }
-.button.btn-green-plain {
+.button.btn-round {
+  border-radius: 100px;
+  height: 36px;
+  padding: 10px 16px;
+}
+.button.btn-light-green-plain {
   background-color: transparent;
-  color: #47D7AC;
-  border-color: #47D7AC;
+  border: 1px solid #7ED321;
+  color: #000; 
 }
 
 .label {
@@ -99,6 +104,12 @@ textarea { resize: none; }
 .fieldError input[type=text],
 .fieldError textarea,
 .fieldError .nwook-dropdown .dropdown-toggle { border-color: red; }
+.heading-n {
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 5px;
+}
+.padding0 {padding: 0px;}
 
 /* dropdown styles start */
 .nwook-dropdown .dropdown-toggle {
@@ -156,7 +167,37 @@ textarea { resize: none; }
     margin-left: 8px;
     cursor: pointer;
 }
+.nwook-input-dropdown input {
+  border-right: none;
+  width: 65%;
+  float: left;
+}
+.nwook-input-dropdown .nwook-dropdown {
+  width: 35%;
+  float: left;
+}
+.nwook-input-dropdown .nwook-dropdown .dropdown-menu { min-width: 100%; }
 /* dropdown styles end */
+
+/* Counter styles starts here */
+.counterWrapper {
+    height: 36px;
+    border: 1px solid #D8D8D8;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+  .counterWrapper div { 
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .counterWrapper .first, .counterWrapper .last { width: 36px; padding: 10px; cursor: pointer;}
+  .counterWrapper .first { border-right: 1px solid #D8D8D8; color: #D0021B; }
+  .counterWrapper .last { border-left: 1px solid #D8D8D8; color: #7ED321; }
+  .counterWrapper .disabled { opacity: 0.5; pointer-events: none; }
+/* Counter styles ends here */
 
 /* common styles ends here */
 
@@ -260,6 +301,8 @@ textarea { resize: none; }
 .uploadImgContainer.add div { position: absolute;}
 .uploadImgContainer.add div:first-child{ height: 40px; left: 70px; border-left: 1px solid #FFFFFF;}
 .uploadImgContainer.add div:last-child{ width: 41px; left: 50px; border-top: 1px solid #FFFFFF;}
+.promotions .help-text, .coupon-promotions .help-text { margin-bottom: 5px; }
+.coupon-promotions { margin-top: 100px; }
 /* Right container styles ends here */
 
 /* Header styles starts here */
