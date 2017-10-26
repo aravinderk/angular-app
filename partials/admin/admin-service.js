@@ -1,28 +1,35 @@
 angular.module('AdminServiceModule', []).factory('AdminService', AdminService);
 
-function AdminService(){
+AdminService.$inject = ['$http'];
+
+function AdminService($http){
+
     var service = {
-        statusMenuItems: [
-            {text: 'Basic Info'},
-			{text: 'Facility & Tags'},
-			{text: 'Add-ons'},
-			{text: 'Engine Info'},
-			{text: 'Configuration'},
-			{text: 'Timings'},
-			{text: 'Policies'},
-			{text: 'Promotions'},
-			{text: 'Complete'}
-        ],
-        leftMenuItems: [
-            {icon: '../../images/plus-sign.png', title: 'Add a space', helpText: 'Add a new space'},
-            {icon: '../../images/wrench.png', title: 'Manage spaces', helpText: 'Edit and update space details'},
-            {icon: '../../images/pause-btn.png', title: 'Activate/deactivate spaces', helpText: 'Temporarly start/pause listings'},
-            {icon: '../../images/ProhibitionSign.png', title: 'Blacklisted spaces', helpText: 'Edit & update blocked spaces'},
-            {icon: '../../images/Rupee-symbol.png', title: 'Pricing', helpText: 'View and change pricing'},
-            {icon: '../../images/dollor-sign.png', title: 'Revenue by space', helpText: 'Veiw sales data by space'},
-            {icon: '../../images/tag.png', title: 'Add tags by spaces', helpText: 'Associate facilities to a space'}
-        ],
-        routes: [
+        getStatusMenuItems: getStatusMenuItems,
+        getRoutes: getRoutes,
+        getCities: getCities,
+        getStates: getStates,
+        saveAsDraft: saveAsDraft,
+        getAddressList: getAddressList,
+        getPlaceDetails: getPlaceDetails
+    }
+
+    function getStatusMenuItems () {
+        return [
+            {title: 'Basic Info'},
+			{title: 'Facility & Tags'},
+			{title: 'Add-ons'},
+			{title: 'Engine Info'},
+			{title: 'Configuration'},
+			{title: 'Timings'},
+			{title: 'Policies'},
+			{title: 'Promotions'},
+			{title: 'Complete!'}
+        ];
+    }
+
+    function getRoutes () {
+        return [
             'admin.basicInfo',
             'admin.facilityTags',
             'admin.addons',
@@ -32,42 +39,87 @@ function AdminService(){
             'admin.policies',
             'admin.promotions',
             'admin.complete'
-        ],
-        getCities: function () {
-            return [
-                {id:'Hyderabad',name:'Hyderabad'},
-                {id:'Chennai',name:'Chennai'},
-                {id:'Mumbai',name:'Mumbai'},
-                {id:'Pune',name:'Pune'},
-                {id:'bangalore',name:'bangalore'},
-                {id:'Delhi',name:'Delhi'}
-            ];
-        },
-        getStates: function () {
-            return [
-                {id:'Andhrapradesh',name:'Andhrapradesh'},
-                {id:'Telangana',name:'Telangana'},
-                {id:'Delhi',name:'Delhi'},
-                {id:'karnataka',name:'karnataka'},
-                {id:'Maharastra',name:'Maharastra'},
-                {id:'Tamilnadu',name:'Tamilnadu'}
-            ];
-        },
-        getCategoryList: function () {
-            return [
-                 {id:'category 1',name:'category 1'},
-                 {id:'category 2',name:'category 2'},
-                 {id:'category 3',name:'category 3'},
-                 {id:'category 4',name:'category 4'}
-            ]
-        },
-        getServiceType: function(){
-            return[
-                {id:'Free',name:'Free'},
-                {id:'Paid',name:'Paid'}
-            ]
+        ];
+    }
 
-        }
+    function getCities () {
+        return $http({
+            method: 'GET',
+            url: 'data/cities.json',
+        }).then(function(res) {  // Success
+            return  res.data;    
+        }, function(response) { // Failure
+            
+        });
+    }
+
+    function getStates () {
+        return $http({
+            method: 'GET',
+            url: 'data/states.json',
+        }).then(function(res) {  // Success
+            return  res.data;    
+        }, function(response) { // Failure
+            
+        });
+    }
+
+    function saveAsDraft (formData) {
+        return $http({
+            method: 'POST',
+            url: '/someUrl',
+            data: formData
+        }).then(function(data) { // Success
+            return  data;    
+        }, function(response) { // Failure
+            
+        });
+    }
+
+    function getAddressList (searchStr) {
+        return $http({
+            method: 'GET',
+            url: 'data/placesList.json',
+            // url: GOOGLE_API_SEARCH_URL,
+            params: {
+                'input': searchStr,
+                'types': 'geocode',
+                'key': GOOGLE_API_KEY
+            }
+        }).then(function(res) { // Success
+            var data = [];
+            if(res && res.data && res.data.predictions) {
+                res.data.predictions.forEach(function(item) {
+                    data.push({
+                        'name': item.description,
+                        'id': item.place_id
+                    });
+                });
+            }
+            return data;    
+        }, function(response) { // Failure
+            console.log('failure', response);
+        });
+    }
+
+    function getPlaceDetails (placeId) {
+        return $http({
+            method: 'GET',
+            url: 'data/placeDetails.json',
+            //url: GOOGLE_API_PLACE_DETAILS_URL,
+            params: {
+                'placeid': placeId,
+                'key': GOOGLE_API_KEY
+            }
+        }).then(function(res) { // Success
+            var data = {};
+            if(res && res.data && res.data.result && res.data.result.geometry && res.data.result.geometry.location) {
+                data = res.data.result.geometry.location;
+            }
+            return data;     
+        }, function(response) { // Failure
+            
+        });
     }
     
     return service;
