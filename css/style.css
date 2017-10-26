@@ -35,9 +35,17 @@ body {background-color: #fff; position: relative; margin: 0px; padding: 0px; fon
 ul li {list-style-type: none;}
 img {font-size: 0;}
 
-#container {background-color: #F1F1F1; padding: 0px;}
+/* Header styles starts here */
+  #app-header { 
+    background: #fff;
+    min-height: 120px;
+    margin-bottom: 27px;
+    padding: 0;
+  }
+/* header styles end */
 
 /* common styles starts from here */
+#container {background-color: #F1F1F1; padding: 0px;}
 .button {
   background-color: #D8D8D8;
   border: 1px solid #D8D8D8;
@@ -61,10 +69,15 @@ img {font-size: 0;}
   border: 1px solid #47D7AC;
   color: #FFF;
 }
-.button.btn-green-plain {
+.button.btn-round {
+  border-radius: 100px;
+  height: 36px;
+  padding: 10px 16px;
+}
+.button.btn-light-green-plain {
   background-color: transparent;
-  color: #47D7AC;
-  border-color: #47D7AC;
+  border: 1px solid #7ED321;
+  color: #000; 
 }
 
 .label {
@@ -89,47 +102,17 @@ input[type=text], textarea {
   font-size: 14px
 }
 textarea { resize: none; }
-.form-item {
-  margin-top: 20px;
-}
-select{
-    height: 36px;
-    border: 1px solid #d8d8d8;
-    width: 100%;
-}
-.clear { clear: both;}
+.form-item { margin-top: 20px; }
 .primary-green { color: #47D7AC;}
 .text-center { text-align: center; }
 .error { color: red; font-size: 12px;}
 .fieldError input[type=text],
 .fieldError textarea,
 .fieldError .nwook-dropdown .dropdown-toggle { border-color: red; }
-.group-title{	
-  color: #4A4A4A;	
-  font-size: 12px;	
-  line-height: 15px;
-  margin-top: 20px;
-}
-.unitSelectorInput{
-  width: 100%;
-  height: 38px;
-  border: 1px solid #D8D8D8;
-}
-.unitSelectorInput input{
-  width: 50%;
-  border: 0px;
-  border-right: 1px solid #D8D8D8;
-}
-.unitSelectorInput select{
-  width: 47%;
-  border: 0px;
-}
-.createAnother{
-  border-radius: 100px;
-  width: 250px;
-  background: transparent;
-  border: 1px solid #47D7AC;height: 38px;
-}
+.padding0 {padding: 0px;}
+.clear { clear: both;}
+.hide { display: none; }
+
 /* dropdown styles start */
 .nwook-dropdown .dropdown-toggle {
     border: 1px solid #D8D8D8;
@@ -151,13 +134,6 @@ select{
     position: absolute;
     right: 10px;
 }
-.nwook-dropdown .dropdown-toggle input[type=text] {
-    padding: 0px;
-    border: none;
-    height: 34px;
-    width: auto;
-}
-
 .nwook-dropdown .dropdown-menu { 
     border-radius: 0px;     
     max-height: 250px;
@@ -165,63 +141,17 @@ select{
     width: 100%;
     font-size: 10px;
 }
-  .nwook-dropdown .dropdown-menu > li.disabled {
-    pointer-events: none;
-    color: D0D0D0;
-  }
 .nwook-dropdown .dropdown-menu > li > a:focus, 
 .nwook-dropdown .dropdown-menu > li > a:hover {
     color: #FFF;
     background-color: #47D7AC;
     outline: none;
 }
-.nwook-dropdown .dropdown-tag {
-    background: #F1F1F1;
-    padding: 5px;
-    font-size: 10px;
-    border-radius: 4px;
-    margin-right: 5px;
-}
-.nwook-dropdown .tag-close {
-    margin-left: 8px;
-    cursor: pointer;
-}
 /* dropdown styles end */
-
 /* common styles ends here */
 
 /* Left container styles starts from here */
 #left-menu { width: 265px; padding: 0px; }
-.menu-item {
-  height: 56px;
-  width: 56px;
-  background: #FFF;
-  padding: 8px;
-  margin-bottom: 2px;
-  position: relative;
-}
-.menu-item img { width: 100%; height: 100%; }
-.menu-item .tooltip {
-  opacity: 1;
-  left: 58px;
-  top: 2px;
-  width: 211px;
-  height: 52px;
-  font-family: lato-regular;
-  font-size: 12px;
-  line-height: 15px;
-}
-.menu-item .tooltip-inner {
-  height: 100%;
-  border-radius: 0px;
-  max-width: 100%;
-  padding: 11px 8px;
-}
-.menu-item .tooltip .tooltip-arrow {
-    left: -5px;
-    margin-top: -10px;
-    border-width: 10px 10px 10px 0;
-}
 #status-indicator { width: 180px; padding: 0; }
 #left-container {
   background-color: #FFF;
@@ -270,33 +200,4 @@ select{
 .address-item .form-item{ float: left; width: 18%; margin-right: 5%; }
 .address-item .form-item:first-child{ width: 30%; }
 .address-item .form-item:last-child{ margin-right: 0; }
-.tags-container button {
-  width: 33%; 
-  margin-bottom: 20px; 
-  border-radius: 23px;
-  color: #fff;
-}
-.uploadImgContainer {
-  border: 1px solid #D8D8D8;
-  width: 140px;
-  height: 110px;
-  display: flex;
-  align-items: center;
-  float: left;
-  margin-right: 16px;
-  position: relative;
-}
-.uploadImgContainer.add { background: #D8D8D8; }
-.uploadImgContainer.add div { position: absolute;}
-.uploadImgContainer.add div:first-child{ height: 40px; left: 70px; border-left: 1px solid #FFFFFF;}
-.uploadImgContainer.add div:last-child{ width: 41px; left: 50px; border-top: 1px solid #FFFFFF;}
 /* Right container styles ends here */
-
-/* Header styles starts here */
-  #app-header { 
-    background: #fff;
-    min-height: 120px;
-    margin-bottom: 27px;
-    padding: 0;
-  }
-/* header styles end */
