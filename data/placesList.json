@@ -1,0 +1,190 @@
+{
+   "predictions" : [
+      {
+         "description" : "Hyderabad, Telangana, India",
+         "id" : "ef5aa289432a57b6d718e98ddd5107b7d46b068e",
+         "matched_substrings" : [
+            {
+               "length" : 3,
+               "offset" : 0
+            }
+         ],
+         "place_id" : "ChIJx9Lr6tqZyzsRwvu6koO3k64",
+         "reference" : "CkQzAAAAoH_UeyCJNflnmdPVk7d9YBdjLVXVswtjK1oe18dJ0l-MgyS79Tw8qLi1OKVFTbWXfN5syIzvZ903cA9BLwpU_BIQtRPZlhF4SeCWYhwTINX_9BoU4-Iwrw3AKKgV6YcMe49Q809zhWQ",
+         "structured_formatting" : {
+            "main_text" : "Hyderabad",
+            "main_text_matched_substrings" : [
+               {
+                  "length" : 3,
+                  "offset" : 0
+               }
+            ],
+            "secondary_text" : "Telangana, India"
+         },
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Hyderabad"
+            },
+            {
+               "offset" : 11,
+               "value" : "Telangana"
+            },
+            {
+               "offset" : 22,
+               "value" : "India"
+            }
+         ],
+         "types" : [ "locality", "political", "geocode" ]
+      },
+      {
+         "description" : "Hyde Park, United Kingdom",
+         "id" : "0c4243ea316adc1de48203aa03b54f605fee77d6",
+         "matched_substrings" : [
+            {
+               "length" : 3,
+               "offset" : 0
+            }
+         ],
+         "place_id" : "ChIJ_W_U0HaoYUgRzcGDRdVaXqg",
+         "reference" : "CkQxAAAAOrSSMBZq-ZyxFrKGApMEp6JgAt3_yStX-zWMDYwBPSB56Itnms1UsVP4NGhU2N5LWM8NBFbKx3uuZDBEMHm-ahIQPgTKZVOly782WwaDhmvqcRoUis3vcLc1ltofa-ClibmW1vLjWeQ",
+         "structured_formatting" : {
+            "main_text" : "Hyde Park",
+            "main_text_matched_substrings" : [
+               {
+                  "length" : 3,
+                  "offset" : 0
+               }
+            ],
+            "secondary_text" : "United Kingdom"
+         },
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Hyde Park"
+            },
+            {
+               "offset" : 11,
+               "value" : "United Kingdom"
+            }
+         ],
+         "types" : [ "locality", "political", "geocode" ]
+      },
+      {
+         "description" : "Hyderabad, Sindh, Pakistan",
+         "id" : "90a4bb164711c43452ff76bee51fa7cc62db8f69",
+         "matched_substrings" : [
+            {
+               "length" : 3,
+               "offset" : 0
+            }
+         ],
+         "place_id" : "ChIJw_NE1PZwTDkRheJBPRi8C8A",
+         "reference" : "CkQyAAAAYZoY1BAjVl-780ZSM6Prj714nDmkIidL6VZJhuIwhQ06T-eS-81LfypFVs7Lz96MUcVZ8AeMb0A-PC1eCfSsaxIQH_SiW2tO7HdOlqLu7ThIERoUGK66ljIigWa2cv2nViwqFQmhuAU",
+         "structured_formatting" : {
+            "main_text" : "Hyderabad",
+            "main_text_matched_substrings" : [
+               {
+                  "length" : 3,
+                  "offset" : 0
+               }
+            ],
+            "secondary_text" : "Sindh, Pakistan"
+         },
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Hyderabad"
+            },
+            {
+               "offset" : 11,
+               "value" : "Sindh"
+            },
+            {
+               "offset" : 18,
+               "value" : "Pakistan"
+            }
+         ],
+         "types" : [ "locality", "political", "geocode" ]
+      },
+      {
+         "description" : "Hyde Street, San Francisco, CA, United States",
+         "id" : "39bb2a0cbfb66bb22405e72de70ba6b73e228092",
+         "matched_substrings" : [
+            {
+               "length" : 3,
+               "offset" : 0
+            }
+         ],
+         "place_id" : "Ei1IeWRlIFN0cmVldCwgU2FuIEZyYW5jaXNjbywgQ0EsIFVuaXRlZCBTdGF0ZXM",
+         "reference" : "CkQxAAAALvPHZU35Vhd3x8fY9GCHNNqxA0-YLwke90_5q4HOCKbqKV-kzxROFNgFcsdEj7IBpTaRsx1vDzI9Lej_4T2tTBIQrg9YN1DkHvMco1zFaqFrZRoU16Hin5-TgPVGgjxYGHQPR62TwT8",
+         "structured_formatting" : {
+            "main_text" : "Hyde Street",
+            "main_text_matched_substrings" : [
+               {
+                  "length" : 3,
+                  "offset" : 0
+               }
+            ],
+            "secondary_text" : "San Francisco, CA, United States"
+         },
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Hyde Street"
+            },
+            {
+               "offset" : 13,
+               "value" : "San Francisco"
+            },
+            {
+               "offset" : 28,
+               "value" : "CA"
+            },
+            {
+               "offset" : 32,
+               "value" : "United States"
+            }
+         ],
+         "types" : [ "route", "geocode" ]
+      },
+      {
+         "description" : "Hyde Park, NY, United States",
+         "id" : "b734297f9eb21358af68048e0d21ec3ec7284c1d",
+         "matched_substrings" : [
+            {
+               "length" : 3,
+               "offset" : 0
+            }
+         ],
+         "place_id" : "ChIJozoM4U0U3YkR7NqOW7eqyb8",
+         "reference" : "CkQ0AAAAcS8HvGH-mg5qPwKBv4QSI6SaK4Iy6hQ2UAn6wwiWzLCz-3s_pymJejs9aIokCtgttxHBZntMLnGRXEhioXMSThIQI23TG09ad1CcpWcFy3LnvBoUBcjYnQ7ggB6f4Jg0AXDRgxsN-hE",
+         "structured_formatting" : {
+            "main_text" : "Hyde Park",
+            "main_text_matched_substrings" : [
+               {
+                  "length" : 3,
+                  "offset" : 0
+               }
+            ],
+            "secondary_text" : "NY, United States"
+         },
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Hyde Park"
+            },
+            {
+               "offset" : 11,
+               "value" : "NY"
+            },
+            {
+               "offset" : 15,
+               "value" : "United States"
+            }
+         ],
+         "types" : [ "locality", "political", "geocode" ]
+      }
+   ],
+   "status" : "OK"
+}
