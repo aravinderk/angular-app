@@ -6,11 +6,15 @@ function AdminController($scope, AdminService, $state){
 	
 	initController(); // Entry point for the controller
 	var cityMap = {};
-
+	
 	// This will handle next button in each page
 	function HandleNext () {
 		if($scope.spaceForm.$valid){
 			if (($scope.routes.length - 1) <= $scope.pageIndex) {
+				return;
+			}
+			if ($scope.pageIndex === 1 && !$scope.showSpaceImg ) {
+				$scope.showSpaceImg = true;
 				return;
 			}
 			$scope.pageIndex++;
@@ -64,6 +68,39 @@ function AdminController($scope, AdminService, $state){
 		$scope.formData.basicInfo.longitude = '';
 	}
 
+	function showAddFacilityPopup () {
+		$scope.facility = '';
+		$('#addFacilityModal').modal('show');
+		$('#addFacilityModal input[type=text]').focus();
+	}
+
+	function addFacility () {
+		if( $scope.facility ){
+			$scope.addFacilitySubmit = false;
+			$('#addFacilityModal').modal('hide');
+			$scope.formData.facilityAndTags.facilities.push($scope.facility);
+			$scope.facility = '';
+		} else {
+			$scope.addFacilitySubmit = true;
+		}
+	}
+
+	function selectImage () {
+		$('.spaceImgContainer input[name=uploadImg]').click();
+	}
+
+	function handleChangeImage (input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$scope.imageUrls.push(e.target.result);
+				$scope.formData.facilityAndTags.images.push(input.files[0]);
+				$scope.$apply();
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
 	function initController () {
 		// Functions in $scope
 		$scope.handleNext = HandleNext;
@@ -71,15 +108,20 @@ function AdminController($scope, AdminService, $state){
 		$scope.handleStateChange = handleStateChange;
 		$scope.getAddressList = getAddressList;
 		$scope.getPlaceDetails = getPlaceDetails;
+		$scope.showAddFacilityPopup = showAddFacilityPopup;
+		$scope.addFacility = addFacility;
+		$scope.selectImage = selectImage;
+		$scope.handleChangeImage = handleChangeImage;
 
 		// Variables in $scope 
 		$scope.statusMenuItems = AdminService.getStatusMenuItems();
 		$scope.routes = AdminService.getRoutes();
 		$scope.cityList = [];
+		$scope.imageUrls = [];
 		$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
 		$scope.formData = {
 			basicInfo: {},
-			facilityAndTags: {},
+			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
 			addOns: {},
 			engineInfo: {},
 			configuration: {},
@@ -87,7 +129,7 @@ function AdminController($scope, AdminService, $state){
 			policies: {},
 			promotions: {}
 		};
-
+		
 		AdminService.getCities().then(function(data){
 			data.forEach(function(item) {
 				if(!cityMap[item.state_map]){
@@ -99,6 +141,10 @@ function AdminController($scope, AdminService, $state){
 
 		AdminService.getStates().then(function(data){
 			$scope.stateList = data;
+		});
+
+		AdminService.getAssociatedCategoryList().then(function(data){
+			$scope.associatedCategoryList = data;
 		});
 	}
 }
