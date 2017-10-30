@@ -1,1 +1,71 @@
-<h2>Facility And Tags</h2>
+<div ng-hide="showSpaceImg">
+    <div class="form-item">
+        <div class="label">Facilities</div>
+        <div class="help-text">Choose one or more facilities available at the space</div>
+        <div class="tags-container">
+            <div class="row">
+                <div class="col-xs-4 padding0" ng-repeat="facility in formData.facilityAndTags.facilities">
+                    <button type="button" class="button btn-round btn-green">{{facility}}</button>
+                </div>
+                <div class="col-xs-4 padding0">
+                    <button type="button" class="button btn-round btn-light-green-plain" ng-click="showAddFacilityPopup()">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-item" style="width: 40%;" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.associatedCategory.$error.required && formData.facilityAndTags.associatedCategory.length <= 0)}">
+        <div class="label">Select associated categories</div>
+        <div class="help-text"></div>
+        <nwook-filter-dropdown id="associatedCategoryDropdown" items="associatedCategoryList" name="associatedCategory" model="formData.facilityAndTags.associatedCategory" required="true"></nwook-filter-dropdown>
+        <div class="error" ng-show="spaceForm.$submitted && spaceForm.associatedCategory.$error.required && formData.facilityAndTags.associatedCategory.length <= 0">Please select associated category.</div>
+    </div>
+
+    <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.keywordTags.$error.required)}">
+        <div class="label">Keywords/Tags</div>
+        <div class="help-text">Add keywords separated by comma</div>
+        <textarea rows="5" name="keywordTags" ng-model="formData.facilityAndTags.keywordTags" required></textarea>
+        <div class="error" ng-show="spaceForm.$submitted && spaceForm.keywordTags.$error.required">Please enter Keywords/Tags.</div>
+    </div>
+</div>
+
+<div class="spaceImgContainer" ng-show="showSpaceImg">
+    <div class="form-item">
+        <div class="label">Images</div>
+        <div class="help-text">Upload images of the space (&#60;1 mb)</div>
+        <div class="uploadImgContainer" ng-repeat="image in imageUrls">
+            <img ng-src="{{image}}" />
+        </div>
+        <div class="uploadImgContainer addImgBtn" ng-click="selectImage()">
+            <div></div>
+            <div></div>
+        </div>
+        <input type="file" name="uploadImg" class="hide" ng-model="uploadedImg" onchange="angular.element(this).scope().handleChangeImage(this)" />
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div id="addFacilityModal" class="nwook-popup modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title">Add Facility</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-item inline-form" ng-class="{'fieldError': addFacilitySubmit && !facility}">
+            <div class="label">Facility</div>
+            <div class="elem-wrapper">
+                <input type="text" name="addFacility" ng-model="$parent.facility" />
+                <div class="error" ng-show="addFacilitySubmit && !facility">Please enter facility name.</div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button btn-green" ng-click="addFacility()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
