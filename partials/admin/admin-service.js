@@ -11,7 +11,8 @@ function AdminService($http){
         getStates: getStates,
         saveAsDraft: saveAsDraft,
         getAddressList: getAddressList,
-        getPlaceDetails: getPlaceDetails
+        getPlaceDetails: getPlaceDetails,
+        getAssociatedCategoryList: getAssociatedCategoryList
     }
 
     function getStatusMenuItems () {
@@ -57,6 +58,17 @@ function AdminService($http){
         return $http({
             method: 'GET',
             url: 'data/states.json',
+        }).then(function(res) {  // Success
+            return  res.data;    
+        }, function(response) { // Failure
+            
+        });
+    }
+
+    function getAssociatedCategoryList () {
+        return $http({
+            method: 'GET',
+            url: 'data/categories.json',
         }).then(function(res) {  // Success
             return  res.data;    
         }, function(response) { // Failure
