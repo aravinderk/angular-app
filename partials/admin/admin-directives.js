@@ -52,17 +52,39 @@ function nwookFilterDropdown () {
 				if($scope.model.indexOf(item.id) <= -1){
 					$scope.selectedItems.push(item);
 				}
-				updateModel();
+				updateModel(); // Update form data
+				$scope.searchStr = ''; //Empty search string in input
+				angular.element(e.target).closest('.nwook-dropdown').find('input[type=text]').focus(); // focus search input
 			}
 
-			$scope.removeTag = function (e, item) {
+			$scope.handleInputChange = function (e) {
+				var _this = angular.element(e.target);
+				var dropdown_btn = _this.closest('.dropdown-toggle');
+				var dropdown = _this.closest('.nwook-dropdown');
+				if(e.keyCode == '40') {
+					dropdown.find('ul li:first-child').find('a').focus();   // focus first element in dropdown when pressing down arrow in search input
+				} else if($scope.searchStr && $scope.searchStr.trim() && !dropdown.hasClass('open')){
+					dropdown_btn.click();
+				} else if (!$scope.searchStr && dropdown.hasClass('open')) {
+					dropdown_btn.click();
+				}
+			}
+
+			$scope.handleKeydown = function (e) {
+				if(e.keyCode == '8' && !$scope.searchStr && $scope.selectedItems.length > 0) {
+					$scope.selectedItems.pop();  // removing selected tag when pressing back button.
+					updateModel();
+				}
+			}
+
+			$scope.removeTag = function (e, item) {   // To remove selected tag when clicking on close icon.
 				var index = $scope.selectedItems.indexOf(item.id);
 				$scope.selectedItems.splice(index, 1);
 				updateModel();
 				e.stopPropagation();
 			}
 
-			function updateModel () {
+			function updateModel () {	// Updating model
 				var selectedItemIds = [];
 				$scope.selectedItems.forEach(function(category){
 					selectedItemIds.push(category.id);
@@ -75,7 +97,7 @@ function nwookFilterDropdown () {
 						'<span class="dropdown-tag" ng-repeat="item in selectedItems">'+
 							'{{item.name}} <span class="tag-close" ng-click="removeTag($event, item)">X</span>'+
 						'</span>'+	
-						'<input type="text" ng-model="searchStr" />'+
+						'<input type="text" ng-model="searchStr" ng-keyup="handleInputChange($event)" ng-keydown="handleKeydown($event)" />'+
 						'<span class="caret"></span>'+
 					'</div>'+
 					'<ul class="dropdown-menu" aria-labelledby="{{id}}">'+
