@@ -90,7 +90,16 @@ function AdminController($scope, AdminService, $state){
 	}
 
 	function handleChangeImage (input) {
+		$scope.imageError = false;
 		if (input.files && input.files[0]) {
+			var allowedTypes = ['PNG', 'JPG', 'JPEG'];
+			var file = input.files[0];
+			var fileType = file.name.substr(file.name.lastIndexOf('.') + 1);
+			if(((file.size / 1024).toFixed(3)) > 1024 || !fileType || (fileType && allowedTypes.indexOf(fileType.toUpperCase()) <= -1)){
+				$scope.imageError = true;
+				$scope.$apply();
+				return;
+			}
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				$scope.imageUrls.push(e.target.result);
