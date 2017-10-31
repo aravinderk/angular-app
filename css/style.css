@@ -81,9 +81,9 @@ img {font-size: 0;}
   font-weight: bold;
   font-size: 16px; 
 }
-.btn-light-green-plain:hover,
-.btn-light-green-plain:focus { box-shadow: 0 0 2px #7ED321; }
+.button:hover, .button:focus {box-shadow: 0 0 2px #D8D8D8; font-family: lato-bold;}
 .btn-green:hover, .btn-green:focus { box-shadow: 0 0 2px #47D7AC; font-family: lato-bold; }
+.btn-light-green-plain:hover, .btn-light-green-plain:focus { box-shadow: 0 0 2px #7ED321; font-family: lato-bold;}
 
 .label {
   font-size: 16px;
