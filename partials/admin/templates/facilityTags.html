@@ -36,9 +36,12 @@
         <div class="uploadImgContainer" ng-repeat="image in imageUrls">
             <img ng-src="{{image}}" />
         </div>
-        <div class="uploadImgContainer addImgBtn" ng-click="selectImage()">
-            <div></div>
-            <div></div>
+        <div style="display: flex; flex-direction: column;">
+            <div class="uploadImgContainer addImgBtn" ng-click="selectImage()">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="error" ng-show="imageError">Please upload valid image.</div>
         </div>
         <input type="file" name="uploadImg" class="hide" ng-model="uploadedImg" onchange="angular.element(this).scope().handleChangeImage(this)" />
         <div class="clear"></div>
