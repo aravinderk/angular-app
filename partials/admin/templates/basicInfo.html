@@ -31,15 +31,16 @@
         <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.state.$error.required)}">
             <div class="label">&nbsp;</div>
             <div class="help-text">State</div>
-            <nwook-dropdown id="stateDropdown" items="stateList" name="state" model="formData.basicInfo.state" required="true"></nwook-dropdown>
+            <nwook-dropdown id="stateDropdown" items="stateList" name="state" model="formData.basicInfo.state" onchange="handleStateChange()" required="true"></nwook-dropdown>
             <div class="error" ng-show="spaceForm.$submitted && spaceForm.state.$error.required">Please select state.</div>
         </div>
 
-        <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.pincode.$error.required)}">
+        <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && (spaceForm.pincode.$error.required || spaceForm.pincode.$error.pattern))}">
             <div class="label">&nbsp;</div>
             <div class="help-text">Pincode</div>
-            <input type="text" name="pincode" ng-model="formData.basicInfo.pincode" required />
+            <input type="text" name="pincode" ng-model="formData.basicInfo.pincode" ng-pattern="/^[0-9]{6}$/" required />
             <div class="error" ng-show="spaceForm.$submitted && spaceForm.pincode.$error.required">Please enter pincode.</div>
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.pincode.$error.pattern">Please enter a valid 6 digit pincode.</div>
         </div>
     </div>
     <div class="clear"></div>
@@ -55,8 +56,16 @@
         <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.locationOnMap.$error.required)}">
             <div class="label">Location on google maps</div>
             <div class="help-text">Type to search</div>
-            <input type="text" name="locationOnMap" ng-model="formData.basicInfo.locationOnMap" required />
+            <input type="text" name="locationOnMap" ng-model="formData.basicInfo.locationOnMap" ng-keyup="getAddressList($event, formData.basicInfo.locationOnMap)" required />
+            <div class="dropdown nwook-dropdown">
+                <button class="dropdown-toggle hide" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">&nbsp;</button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="item in placesFromMap"><a href="#" ng-click="getPlaceDetails($event, item)">{{item.name}}</a></li>
+                </ul>
+            </div>
             <div class="error" ng-show="spaceForm.$submitted && spaceForm.locationOnMap.$error.required">Please enter locationOnMap.</div>
+            <input type="hidden" ng-model="formData.basicInfo.latitude" />
+            <input type="hidden" ng-model="formData.basicInfo.longitude" />
         </div>
     </div>
 <div class="clear"></div>
