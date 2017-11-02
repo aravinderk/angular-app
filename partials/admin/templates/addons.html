@@ -1,59 +1,65 @@
-<h2>Universal Add-Ons</h2>
+<div class="heading-n">Universal Add-Ons</div>
 
 <div class="group-title">Create an add-on</div>
-<div class="">
+<div class="addon-container">
     <div class="row">
-        <div class="form-item col-lg-3">
-            <div class="label">Name</div>
-            <input type="text" />
+        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnName.$error.required)}">
+            <div class="help-text">Name</div>
+            <input type="text" name="addOnName" ng-model="formData.addOns.addOnName" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnName.$error.required">Please enter name.</div>
         </div>
 
-        <div class="form-item col-lg-3">
-            <div class="label">Inventory</div>
-            <input type="text" />
+        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.inventory.$error.required)}">
+            <div class="help-text">Inventory</div>
+            <input type="text" name="inventory" ng-model="formData.addOns.inventory" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.inventory.$error.required">Please enter Inventory.</div>
         </div>
-        <div class="form-item col-lg-3">
-        <div class="label">Price per unit/hour</div>
-        <div class="unitSelectorInput">
-                <input type="text" />
-                <select>
-                    <option value="select">select</option>
-                    <option value="unit">Unit</option>
-                    <option value="hour">Hour</option>
-                </select>
-        </div>
+        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && (spaceForm.price.$error.required || spaceForm.price.$error.priceUnit))}">
+            <div class="help-text">Price per unit/hour</div>
+            <nwook-input-dropdown id="pricePerUnit" dropdown-items="priceUnits" dropdown-name="pricePerUnit" dropdown-model="formData.addOns.priceUnit" input-name="price" input-model="formData.addOns.price" required="true"></nwook-input-dropdown>
         </div>
         <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.serviceType.$error.required)}">
-        <div class="label">Free or paid</div>
-        <div class="">
-               <nwook-dropdown id="serviceType" items="serviceTypeList" name="serviceType" model="formData.addOns.serviceType" required="true"></nwook-dropdown>
-               <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType.$error.required">Please select Free/Paid.</div>
-        </div>
+            <div class="help-text">Free or paid</div>
+            <nwook-dropdown id="serviceType" items="serviceTypeList" name="serviceType" model="formData.addOns.serviceType" required="true"></nwook-dropdown>
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType.$error.required">Please select Free/Paid.</div>
         </div>
     </div>
     <div class="row">
         <div class="form-item col-lg-3">
-            <div class="label">Min quantity (optional)</div>
-            <input type="text" />
+            <div class="help-text">Min quantity (optional)</div>
+            <input type="text" ng-model="formData.addOns.minQty" />
         </div>
 
         <div class="form-item col-lg-3">
-            <div class="label">Max quantity (optional)</div>
+            <div class="help-text">Max quantity (optional)</div>
             <input type="text" />
         </div>
-        <div class="form-item col-lg-3">
-            <div class="label">Sub add-on pricing</div>
-            <input type="text" />
+        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.subAddOnPricing.$error.required)}">
+            <div class="help-text">Sub add-on pricing</div>
+            <input type="text" name="subAddOnPricing" ng-model="formData.addOns.subAddOnPricing" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.subAddOnPricing.$error.required">Please enter sub add-on pricing.</div>
         </div>
-        <div class="form-item col-lg-3">
-            <div class="label">Hours</div>
-            <input type="text" />
+        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnHours.$error.required)}">
+            <div class="help-text">Hours</div>
+            <input type="text" name="addOnHours" ng-model="formData.addOns.addOnHours" required />
+            <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnHours.$error.required">Please enter hours.</div>
         </div>
     </div>
+    <br/>
     <div class="row">
-        <div class="col-lg-5 form-item">
-            <button type="button" class="createAnother button" >Create another</button>
-            <span class="fa-plus"></span>
+        <div class="col-lg-6">
+            <input type="checkbox" name="convertToSubAddon" ng-model="formData.addOns.convertToSubAddon">
+            <label class="input-label">Convert to sub add on</label>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-4 form-item">
+            <button type="button" class="button btn-green-plain btn-round"><span class="fa-plus"></span> Create another</button>
+        </div>
+        <div class="col-lg-8 form-item text-right">
+            <button type="button" class="button btn-small btn-green-plain">CANCEL</button>
+            <button type="button" class="button btn-small btn-green">SAVE</button>
         </div>
     </div>
 </div>
