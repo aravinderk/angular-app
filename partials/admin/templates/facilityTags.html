@@ -1,53 +1,96 @@
-<div ng-hide="showSpaceImg">
-    <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.category.$error.required)}">
-        <div class="label">Category</div>
-        <div class="help-text">Select category to associate to from the dropdown below.</div>
-        <nwook-dropdown id="categoryDropdown" items="categoryList" name="category" model="formData.facilityAndTags.category" required="true"></nwook-dropdown>
-        <div class="error" ng-show="spaceForm.$submitted && spaceForm.category.$error.required">Please select category.</div>
+<div class="heading-n">Engine Tabs</div>
+
+<div class="group-title">Select engine tabs applicable for the space</div>
+
+<div class="addon-container">
+    <div class="row">
+        <div class="form-item col-lg-4">
+            <div class="help-text">Mandatory</div>
+            <div class="btn-selectable-group">
+                <nwook-selectable-button name="seats" model="formData.engineInfo.seats" text="Seats"></nwook-selectable-button>
+                <nwook-selectable-button name="rooms" model="formData.engineInfo.rooms" text="Rooms"></nwook-selectable-button>
+            </div>
+        </div>
+        <div class="form-item col-lg-2">
+            <div class="help-text">Optional</div>
+            <nwook-selectable-button name="byTheHour" model="formData.engineInfo.byTheHour" text="By the hour"></nwook-selectable-button>
+        </div>
+        <div class="form-item col-lg-2">
+            <div class="help-text">Optional</div>
+            <nwook-selectable-button name="dedicated" model="formData.engineInfo.dedicated" text="Dedicated"></nwook-selectable-button>
+        </div>
+        <div class="form-item col-lg-2">
+            <div class="help-text">Optional</div>
+            <nwook-selectable-button name="packages" model="formData.engineInfo.packages" text="Packages"></nwook-selectable-button>
+        </div>    
     </div>
 
-    <div class="form-item">
-        <div class="label">Facilities</div>
-        <div class="help-text">Choose one or more facilities available at the space</div>
-        <div class="tags-container">
-            <button type="button" class="button btn-green btn-round" >Wifi</button>
-            <button type="button" class="button btn-round">Air-conditioning</button>
-            <button type="button" class="button btn-round">Drinking Water</button>
-            <button type="button" class="button btn-round">Concierge</button>
-            <button type="button" class="button btn-round">Beverages on request</button>
-            <button type="button" class="button btn-green-plain">+</button>
+    <div class="row" style="margin-top: 20px;">
+        <div class="form-item col-lg-12">
+            <div class="label">Booking Confirmation</div>
+            <div class="help-text">Choose whether a booking is subject to a review or auto confirmation</div>
+            <div class="radio-btn">
+                <input type="radio" name="bookingConfirmation"/>
+                <span class="input-label">Auto confirm</span>
+            </div>
+            <div class="radio-btn">
+                <input type="radio" name="bookingConfirmation"/>
+                <span class="input-label">Post review</span>
+            </div>
         </div>
     </div>
 
-    <div class="form-item" style="width: 40%;" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.associatedCategory.$error.required && formData.facilityAndTags.associatedCategory.length <= 0)}">
-        <div class="label">Select associated categories</div>
-        <div class="help-text"></div>
-        <nwook-filter-dropdown id="associatedCategoryDropdown" items="categoryList" name="associatedCategory" model="formData.facilityAndTags.associatedCategory" required="true"></nwook-filter-dropdown>
-        <div class="error" ng-show="spaceForm.$submitted && spaceForm.associatedCategory.$error.required && formData.facilityAndTags.associatedCategory.length <= 0">Please select associated category.</div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="form-item col-lg-12">
+            <div class="label">Identification Requirement</div>
+            <div class="help-text">Sub text</div>
+            <div class="radio-btn">
+                <input type="radio" name="identification"/>
+                <span class="input-label">Mandatory</span>
+            </div>
+            <div class="radio-btn">
+                <input type="radio" name="identification"/>
+                <span class="input-label">Optional</span>
+            </div>
+        </div>
     </div>
 
-    <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.keywordTags.$error.required)}">
-        <div class="label">Keywords/Tags</div>
-        <div class="help-text">Add keywords separated by comma</div>
-        <textarea rows="5" name="keywordTags" ng-model="formData.facilityAndTags.keywordTags" required></textarea>
-        <div class="error" ng-show="spaceForm.$submitted && spaceForm.keywordTags.$error.required">Please enter Keywords/Tags.</div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="form-item col-lg-4">
+            <div class="label">Allow cash?</div>
+            <div class="help-text">Sub text</div>
+            <div class="switch-container">
+                <span class="input-label">Yes</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <span class="input-label">No</span>
+            </div>
+        </div>
+        <div class="form-item col-lg-7">
+            <div class="label">Maximum cash allowed</div>
+            <div class="help-text">Enter value in </div>
+            <input type="text" />
+        </div>
     </div>
-</div>
 
-<div class="spaceImgContainer" ng-show="showSpaceImg">
-    <div class="form-item">
-        <div class="label">Select associated categories</div>
-        <div class="help-text">Upload images of the space (&#60;1 mb)</div>
-        <div class="uploadImgContainer">
-            <img src="../../images/sample.jpg" />
+    <div class="row" style="margin-top: 20px;">
+        <div class="form-item col-lg-4">
+            <div class="label">Credits Accepted?</div>
+            <div class="help-text">Select Yes if space allows usage of credits</div>
+            <div class="switch-container">
+                <span class="input-label">Yes</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <span class="input-label">No</span>
+            </div>
         </div>
-        <div class="uploadImgContainer">
-            <img src="../../images/sample.jpg" />
+        <div class="form-item col-lg-7">
+            <div class="label">Maximum credits allowed</div>
+            <div class="help-text">Enter value</div>
+            <input type="text" />
         </div>
-        <div class="uploadImgContainer add">
-            <div></div>
-            <div></div>
-        </div>
-        <div class="clear"></div>
     </div>
-</div>
