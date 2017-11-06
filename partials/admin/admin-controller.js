@@ -110,7 +110,18 @@ function AdminController($scope, AdminService, $state){
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-
+	function createAddon(){
+		$scope.formData.addOns.addonList.push({saved: false})
+	}
+	function saveAddOn(){
+		angular.forEach($scope.formData.addOns.addonList,function(item, index){
+			item['saved'] = true;
+		})
+	}
+	function deleteAddOn(addOn){
+		console.log(addOn)
+		//$scope.addOn.addonList
+	}
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -135,7 +146,9 @@ function AdminController($scope, AdminService, $state){
 		$scope.addFacility = addFacility;
 		$scope.selectImage = selectImage;
 		$scope.handleChangeImage = handleChangeImage;
-
+		$scope.createAddon = createAddon;
+		$scope.saveAddOn = saveAddOn;
+		$scope.deleteAddOn = deleteAddOn;
 		// Variables in $scope 
 		$scope.statusMenuItems = AdminService.getStatusMenuItems();
 		$scope.routes = AdminService.getRoutes();
@@ -148,7 +161,7 @@ function AdminController($scope, AdminService, $state){
 		$scope.formData = {
 			basicInfo: {},
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
-			addOns: {},
+			addOns: {addonList:[], savedAddonList: []},
 			engineInfo: {rooms: true, seats: false, dedicated: true},
 			configuration: {},
 			timings: {},

@@ -171,6 +171,20 @@ textarea { resize: none; }
   margin-left: 6px;
 }
 .radio-btn { display: inline-block; margin: 10px 40px 0 0;}
+
+.addOnTag .deleteAddon {
+    color: #ffffff;
+    background: #d0d0d0;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: -4px;
+    right: -10px;
+    padding-left: 6px;
+    font-size: 14px;
+}
 /* dropdown styles start */
 .nwook-dropdown .dropdown-toggle {
     border: 1px solid #D8D8D8;
