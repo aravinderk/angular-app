@@ -1,96 +1,74 @@
-<div class="heading-n">Engine Tabs</div>
-
-<div class="group-title">Select engine tabs applicable for the space</div>
-
-<div class="addon-container">
-    <div class="row">
-        <div class="form-item col-lg-4">
-            <div class="help-text">Mandatory</div>
-            <div class="btn-selectable-group">
-                <nwook-selectable-button name="seats" model="formData.engineInfo.seats" text="Seats"></nwook-selectable-button>
-                <nwook-selectable-button name="rooms" model="formData.engineInfo.rooms" text="Rooms"></nwook-selectable-button>
-            </div>
-        </div>
-        <div class="form-item col-lg-2">
-            <div class="help-text">Optional</div>
-            <nwook-selectable-button name="byTheHour" model="formData.engineInfo.byTheHour" text="By the hour"></nwook-selectable-button>
-        </div>
-        <div class="form-item col-lg-2">
-            <div class="help-text">Optional</div>
-            <nwook-selectable-button name="dedicated" model="formData.engineInfo.dedicated" text="Dedicated"></nwook-selectable-button>
-        </div>
-        <div class="form-item col-lg-2">
-            <div class="help-text">Optional</div>
-            <nwook-selectable-button name="packages" model="formData.engineInfo.packages" text="Packages"></nwook-selectable-button>
-        </div>    
-    </div>
-
-    <div class="row" style="margin-top: 20px;">
-        <div class="form-item col-lg-12">
-            <div class="label">Booking Confirmation</div>
-            <div class="help-text">Choose whether a booking is subject to a review or auto confirmation</div>
-            <div class="radio-btn">
-                <input type="radio" name="bookingConfirmation"/>
-                <span class="input-label">Auto confirm</span>
-            </div>
-            <div class="radio-btn">
-                <input type="radio" name="bookingConfirmation"/>
-                <span class="input-label">Post review</span>
+<div ng-hide="showSpaceImg">
+    <div class="form-item">
+        <div class="label">Facilities</div>
+        <div class="help-text">Choose one or more facilities available at the space</div>
+        <div class="tags-container">
+            <div class="row">
+                <div class="col-xs-4 padding0" ng-repeat="facility in formData.facilityAndTags.facilities">
+                    <button type="button" class="button btn-round btn-green">{{facility}}</button>
+                </div>
+                <div class="col-xs-4 padding0">
+                    <button type="button" class="button btn-round btn-green-plain" ng-click="showAddFacilityPopup()">+</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row" style="margin-top: 20px;">
-        <div class="form-item col-lg-12">
-            <div class="label">Identification Requirement</div>
-            <div class="help-text">Sub text</div>
-            <div class="radio-btn">
-                <input type="radio" name="identification"/>
-                <span class="input-label">Mandatory</span>
-            </div>
-            <div class="radio-btn">
-                <input type="radio" name="identification"/>
-                <span class="input-label">Optional</span>
-            </div>
-        </div>
+    <div class="form-item" style="width: 40%;" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.associatedCategory.$error.required && formData.facilityAndTags.associatedCategory.length <= 0)}">
+        <div class="label">Select associated categories</div>
+        <div class="help-text"></div>
+        <nwook-filter-dropdown id="associatedCategoryDropdown" items="associatedCategoryList" name="associatedCategory" model="formData.facilityAndTags.associatedCategory" required="true"></nwook-filter-dropdown>
+        <div class="error" ng-show="spaceForm.$submitted && spaceForm.associatedCategory.$error.required && formData.facilityAndTags.associatedCategory.length <= 0">Please select associated category.</div>
     </div>
 
-    <div class="row" style="margin-top: 20px;">
-        <div class="form-item col-lg-4">
-            <div class="label">Allow cash?</div>
-            <div class="help-text">Sub text</div>
-            <div class="switch-container">
-                <span class="input-label">Yes</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                </label>
-                <span class="input-label">No</span>
-            </div>
-        </div>
-        <div class="form-item col-lg-7">
-            <div class="label">Maximum cash allowed</div>
-            <div class="help-text">Enter value in </div>
-            <input type="text" />
-        </div>
+    <div class="form-item" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.keywordTags.$error.required)}">
+        <div class="label">Keywords/Tags</div>
+        <div class="help-text">Add keywords separated by comma</div>
+        <textarea rows="5" name="keywordTags" ng-model="formData.facilityAndTags.keywordTags" required></textarea>
+        <div class="error" ng-show="spaceForm.$submitted && spaceForm.keywordTags.$error.required">Please enter Keywords/Tags.</div>
     </div>
+</div>
 
-    <div class="row" style="margin-top: 20px;">
-        <div class="form-item col-lg-4">
-            <div class="label">Credits Accepted?</div>
-            <div class="help-text">Select Yes if space allows usage of credits</div>
-            <div class="switch-container">
-                <span class="input-label">Yes</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                </label>
-                <span class="input-label">No</span>
+<div class="spaceImgContainer" ng-show="showSpaceImg">
+    <div class="form-item">
+        <div class="label">Images</div>
+        <div class="help-text">Upload images of the space (&#60;1 mb)</div>
+        <div class="uploadImgContainer" ng-repeat="image in imageUrls">
+            <img ng-src="{{image}}" />
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <div class="uploadImgContainer addImgBtn" ng-click="selectImage()">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="error" ng-show="imageError">Please upload valid image.</div>
+        </div>
+        <input type="file" name="uploadImg" class="hide" ng-model="uploadedImg" onchange="angular.element(this).scope().handleChangeImage(this)" />
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div id="addFacilityModal" class="nwook-popup modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title">Add Facility</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-item inline-form" ng-class="{'fieldError': addFacilitySubmit && !facility}">
+            <div class="label">Facility</div>
+            <div class="elem-wrapper">
+                <input type="text" name="addFacility" ng-model="$parent.facility" />
+                <div class="error" ng-show="addFacilitySubmit && !facility">Please enter facility name.</div>
             </div>
         </div>
-        <div class="form-item col-lg-7">
-            <div class="label">Maximum credits allowed</div>
-            <div class="help-text">Enter value</div>
-            <input type="text" />
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button btn-green" ng-click="addFacility()">Add</button>
+      </div>
     </div>
+  </div>
+</div>
