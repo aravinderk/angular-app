@@ -185,6 +185,9 @@ textarea { resize: none; }
     padding-left: 6px;
     font-size: 14px;
 }
+.addOnTag .col-xs-2{
+  margin-right: 10px;
+}
 /* dropdown styles start */
 .nwook-dropdown .dropdown-toggle {
     border: 1px solid #D8D8D8;

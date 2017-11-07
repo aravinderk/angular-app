@@ -14,14 +14,14 @@
         <div class="row">
             <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnName.$error.required)}">
                 <div class="help-text">Name</div>
-                <input type="text" name="addOnName" ng-model="item.addOnName" required />
-                <div class="error" ng-show="spaceForm.addOnName.$error.required">Please enter name.</div>
+                <input type="text" name="addOnName_{{$index}}" ng-model="item.addOnName" required />
+                <div class="error" ng-show="spaceForm.addOnName_{{$index}}.$error.required">Please enter name.</div>
             </div>
 
             <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.inventory.$error.required)}">
                 <div class="help-text">Inventory</div>
-                <input type="text" name="inventory" ng-model="item.inventory" required />
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.inventory.$error.required">Please enter Inventory.</div>
+                <input type="text" name="inventory_{{$index}}" ng-model="item.inventory" required />
+                <div class="error" ng-show="spaceForm.$submitted && spaceForm.inventory_{{$index}}.$error.required">Please enter Inventory.</div>
             </div>
             <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && (spaceForm.price.$error.required || spaceForm.price.$error.priceUnit))}">
                 <div class="help-text">Price per unit/hour</div>
@@ -29,8 +29,8 @@
             </div>
             <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.serviceType.$error.required)}">
                 <div class="help-text">Free or paid</div>
-                <nwook-dropdown id="serviceType" items="serviceTypeList" name="serviceType" model="item.serviceType" required="true"></nwook-dropdown>
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType.$error.required">Please select Free/Paid.</div>
+                <nwook-dropdown id="serviceType" items="serviceTypeList" name="serviceType_{{$index}}" model="item.serviceType" required="true"></nwook-dropdown>
+                <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Free/Paid.</div>
             </div>
         </div>
         <div class="row">
@@ -45,13 +45,13 @@
             </div>
             <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.subAddOnPricing.$error.required)}">
                 <div class="help-text">Sub add-on pricing</div>
-                <input type="text" name="subAddOnPricing" ng-model="item.subAddOnPricing" required />
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.subAddOnPricing.$error.required">Please enter sub add-on pricing.</div>
+                <input type="text" name="subAddOnPricing_{{$index}}" ng-model="item.subAddOnPricing" required />
+                <div class="error" ng-show="spaceForm.$submitted && spaceForm.subAddOnPricing_{{$index}}.$error.required">Please enter sub add-on pricing.</div>
             </div>
             <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnHours.$error.required)}">
                 <div class="help-text">Hours</div>
-                <input type="text" name="addOnHours" ng-model="item.addOnHours" required />
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnHours.$error.required">Please enter hours.</div>
+                <input type="text" name="addOnHours_{{$index}}" ng-model="item.addOnHours" required />
+                <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnHours_{{$index}}.$error.required">Please enter hours.</div>
             </div>
         </div>
         <br/>

@@ -119,8 +119,12 @@ function AdminController($scope, AdminService, $state){
 		})
 	}
 	function deleteAddOn(addOn){
-		console.log(addOn)
-		//$scope.addOn.addonList
+		angular.forEach($scope.formData.addOns.addonList, function(item, index){
+			if(item.$$hashKey == addOn.$$hashKey){
+				console.log(index)
+				$scope.formData.addOns.addonList.splice(index, 1)
+			}
+		})
 	}
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
