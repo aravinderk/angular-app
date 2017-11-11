@@ -17,6 +17,12 @@ function AdminController($scope, AdminService, $state){
 				$scope.showSpaceImg = true;
 				return;
 			}
+			if($scope.pageIndex === 2){
+				if(!$scope.spaceForm.$pristine){
+					alert("You have unsaved data");
+					return;
+				}
+			}
 			$scope.pageIndex++;
 			$scope.spaceForm.$submitted = false;
 			$state.go($scope.routes[$scope.pageIndex], {}, { location: true });
@@ -110,22 +116,51 @@ function AdminController($scope, AdminService, $state){
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
+	// Functions related to Admin Addon Page start here 
 	function createAddon(){
 		$scope.formData.addOns.addonList.push({saved: false})
+		$scope.hideAddOnSave = false;
 	}
 	function saveAddOn(){
-		angular.forEach($scope.formData.addOns.addonList,function(item, index){
-			item['saved'] = true;
-		})
+		$scope.spaceForm.$submitted = true;
+		if($scope.spaceForm.$valid){
+			angular.forEach($scope.formData.addOns.addonList,function(item, index){
+				item['saved'] = true;
+			})
+			$scope.spaceForm.$submitted = false;
+			$scope.hideAddOnSave = true;
+			$scope.spaceForm.$pristine = true;
+		}
+		
 	}
 	function deleteAddOn(addOn){
 		angular.forEach($scope.formData.addOns.addonList, function(item, index){
 			if(item.$$hashKey == addOn.$$hashKey){
-				console.log(index)
 				$scope.formData.addOns.addonList.splice(index, 1)
 			}
 		})
+		if($scope.formData.addOns.addonList.length == 0){
+			$scope.formData.addOns.addonList.push({saved: false})
+			$scope.spaceForm.$submitted = false;
+		}
 	}
+
+	function cancelAddon(){
+		var listLength = $scope.formData.addOns.addonList.length
+		for(var i=0; i < listLength; i++){
+			if(!$scope.formData.addOns.addonList[$scope.formData.addOns.addonList.length - 1].saved){
+				$scope.formData.addOns.addonList.splice($scope.formData.addOns.addonList.length - 1, 1)
+			}
+		}
+		
+				$scope.spaceForm.$submitted = false;
+				$scope.spaceForm.$pristine = true;
+				$scope.hideAddOnSave = true;
+	}
+
+	// Functions related to Admin Addon Page end here 
+
+
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -153,6 +188,7 @@ function AdminController($scope, AdminService, $state){
 		$scope.createAddon = createAddon;
 		$scope.saveAddOn = saveAddOn;
 		$scope.deleteAddOn = deleteAddOn;
+		$scope.cancelAddon = cancelAddon;
 		// Variables in $scope 
 		$scope.statusMenuItems = AdminService.getStatusMenuItems();
 		$scope.routes = AdminService.getRoutes();
@@ -162,10 +198,11 @@ function AdminController($scope, AdminService, $state){
 		$scope.cityList = [];
 		$scope.imageUrls = [];
 		$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
+		$scope.hideAddOnSave = false;
 		$scope.formData = {
 			basicInfo: {},
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
-			addOns: {addonList:[], savedAddonList: []},
+			addOns: {addonList:[{saved: false}], savedAddonList: []},
 			engineInfo: {rooms: true, seats: false, dedicated: true},
 			configuration: {},
 			timings: {},
