@@ -12,22 +12,23 @@
 <div class="addon-container">
     <div class="wrapper" ng-repeat="item in formData.addOns.addonList | filter: {saved: false}"> 
         <div class="row">
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnName.$error.required)}">
+            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnName_{{$index}}.$error.required)}">
                 <div class="help-text">Name</div>
                 <input type="text" name="addOnName_{{$index}}" ng-model="item.addOnName" required />
-                <div class="error" ng-show="spaceForm.addOnName_{{$index}}.$error.required">Please enter name.</div>
+                <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnName_{{$index}}.$error.required">Please enter name.</div>
             </div>
 
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.inventory.$error.required)}">
+            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.inventory_{{$index}}.$error.required)}">
                 <div class="help-text">Inventory</div>
                 <input type="text" name="inventory_{{$index}}" ng-model="item.inventory" required />
                 <div class="error" ng-show="spaceForm.$submitted && spaceForm.inventory_{{$index}}.$error.required">Please enter Inventory.</div>
             </div>
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && (spaceForm.price.$error.required || spaceForm.price.$error.priceUnit))}">
+            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && (spaceForm.price_{{$index}}.$error.required || spaceForm.pricePerUnit_{{$index}}.$error.required))}">
                 <div class="help-text">Price per unit/hour</div>
-                <nwook-input-dropdown id="pricePerUnit" dropdown-items="priceUnits" dropdown-name="pricePerUnit" dropdown-model="item.priceUnit" input-name="price" input-model="item.price" required="true"></nwook-input-dropdown>
+                <nwook-input-dropdown id="pricePerUnit" dropdown-items="priceUnits" dropdown-name="pricePerUnit_{{$index}}" dropdown-model="item.priceUnit" input-name="price_{{$index}}" input-model="item.price" required="true"></nwook-input-dropdown>
+                <div class="error" ng-show="spaceForm.$submitted && (spaceForm.pricePerUnit_{{$index}}.$error.required || spaceForm.price_{{$index}}.$error.required)">Please enter Price Per unit/hour.</div>
             </div>
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.serviceType.$error.required)}">
+            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required)}">
                 <div class="help-text">Free or paid</div>
                 <nwook-dropdown id="serviceType" items="serviceTypeList" name="serviceType_{{$index}}" model="item.serviceType" required="true"></nwook-dropdown>
                 <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Free/Paid.</div>
@@ -43,21 +44,21 @@
                 <div class="help-text">Max quantity (optional)</div>
                 <input type="text" />
             </div>
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.subAddOnPricing.$error.required)}">
+            <div class="form-item col-lg-3" ng-show="item.convertToSubAddon" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.subAddOnPricing_{{$index}}.$error.required)}">
                 <div class="help-text">Sub add-on pricing</div>
-                <input type="text" name="subAddOnPricing_{{$index}}" ng-model="item.subAddOnPricing" required />
+                <input type="text" name="subAddOnPricing_{{$index}}" ng-model="item.subAddOnPricing" ng-required="item.convertToSubAddon" />
                 <div class="error" ng-show="spaceForm.$submitted && spaceForm.subAddOnPricing_{{$index}}.$error.required">Please enter sub add-on pricing.</div>
             </div>
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnHours.$error.required)}">
+            <div class="form-item col-lg-3" ng-show="item.convertToSubAddon" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnHours_{{$index}}.$error.required)}">
                 <div class="help-text">Hours</div>
-                <input type="text" name="addOnHours_{{$index}}" ng-model="item.addOnHours" required />
+                <input type="text" name="addOnHours_{{$index}}" ng-model="item.addOnHours" ng-required="item.convertToSubAddon" />
                 <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnHours_{{$index}}.$error.required">Please enter hours.</div>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-lg-6">
-                <input type="checkbox" name="convertToSubAddon" ng-model="formData.addOns.convertToSubAddon">
+                <input type="checkbox" name="convertToSubAddon" ng-model="item.convertToSubAddon">
                 <label class="input-label">Convert to sub add on</label>
             </div>
         </div>
@@ -66,8 +67,8 @@
         <div class="col-lg-4 form-item">
             <button type="button" ng-click="createAddon()" class="button btn-green-plain btn-round"><span class="fa-plus"></span> Create another</button>
         </div>
-        <div class="col-lg-8 form-item text-right">
-            <button type="button" class="button btn-small btn-green-plain">CANCEL</button>
+        <div class="col-lg-8 form-item text-right" ng-hide="hideAddOnSave">
+            <button type="button" class="button btn-small btn-green-plain" ng-click="cancelAddon()">CANCEL</button>
             <button type="button" class="button btn-small btn-green" ng-click="saveAddOn()">SAVE</button>
         </div>
     </div>
