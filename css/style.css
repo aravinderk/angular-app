@@ -135,10 +135,10 @@ textarea { resize: none; }
 .clear { clear: both;}
 .primary-green { color: #47D7AC;}
 .text-center { text-align: center; }
-.error { color: red; font-size: 12px;}
+.error { color: #d0021b; font-size: 12px;}
 .fieldError input[type=text],
 .fieldError textarea,
-.fieldError .nwook-dropdown .dropdown-toggle { border-color: red; }
+.fieldError .nwook-dropdown .dropdown-toggle { border-color: #d0021b; }
 .padding0 {padding: 0px;}
 .clear { clear: both;}
 .hide { display: none; }
