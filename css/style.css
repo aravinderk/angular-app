@@ -455,3 +455,31 @@ input:checked + .slider:before {
     padding: 0;
   }
 /* header styles end */
+
+.schedule span{
+    width: 15px;
+    height: 23px;
+    background: #DEEAFE;
+    display: block;
+    cursor: pointer;
+}
+.schedule{
+    width: 722px; 
+    border: 1px solid #979797;
+}
+.days{
+  height: 40px;
+}
+.hour:nth-child(2n) span{
+   border-right: 1px solid #D0D0D0;
+}
+.hour {
+    float: left;
+}
+.schedule span.dummySpan{
+  background: #FAFAFA;
+  height: 18px !important;
+}
+.hour:nth-child(6n) span{
+   border-right:1px solid #979797;
+}

@@ -159,8 +159,23 @@ function AdminController($scope, AdminService, $state){
 	}
 
 	// Functions related to Admin Addon Page end here 
-
-
+	function generateTimeSlots(){
+		var timeSlots = [];
+		var time = 0;
+		for(var i=0; i < 24; i++){
+			for(var j = 0; j < 2; j++){
+				if(j == 0){
+					timeSlots.push(i + ':00')
+				}else{
+					timeSlots.push(i + ':30')
+				}
+			}
+		}
+		return timeSlots;
+	}
+	function changeColor(event){
+		$(event.target).css("background", "#47D7AC")
+	}
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -189,6 +204,7 @@ function AdminController($scope, AdminService, $state){
 		$scope.saveAddOn = saveAddOn;
 		$scope.deleteAddOn = deleteAddOn;
 		$scope.cancelAddon = cancelAddon;
+		$scope.changeColor = changeColor;
 		// Variables in $scope 
 		$scope.statusMenuItems = AdminService.getStatusMenuItems();
 		$scope.routes = AdminService.getRoutes();
@@ -199,13 +215,15 @@ function AdminController($scope, AdminService, $state){
 		$scope.imageUrls = [];
 		$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
 		$scope.hideAddOnSave = false;
+		$scope.dummyHours = generateTimeSlots()
+		$scope.dummyDays = ["All Weekday", "All Weekend","Monday","Tuesday","Wednesday","Thusday", "Friday", "Saturday", "Sunday"]
 		$scope.formData = {
 			basicInfo: {},
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
 			addOns: {addonList:[{saved: false}], savedAddonList: []},
 			engineInfo: {rooms: true, seats: false, dedicated: true},
 			configuration: {},
-			timings: {},
+			timings: {scheduleSlots:[]},
 			policies: {},
 			promotions: {}
 		};
