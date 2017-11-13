@@ -512,3 +512,10 @@ input:checked + .slider:before {
 #noOfSeats{
   border-bottom: 1px solid #47D7AC;
 }
+.day {
+    float: left;
+    width: 11.5%;
+}
+.dayWrapper{
+  height: 20px;
+}

@@ -1,11 +1,10 @@
 <h2>Timings</h2>
+<div class="dayWrapper">
+<div class="dayRepeater" ng-repeat="day in dummyHours"  ng-if = "($index%6) == 0">
+        <div class="day">{{day}}</div>
+</div>
+</div>
 <div class="schedule">
-    <!--<div class="hour" ng-repeat="hour in dummyHours">     
-        <div  ng-repeat="days in  dummyDays">
-            <span ng-mouseover="changeColor($event)"></span>
-            <span class="dummySpan"></span>
-        </div>
-    </div>-->
     <div class="hour" ng-repeat="day in dummyDays">
         <div class="grey">
             <div ng-repeat="hour in dummyHours" class="timeslot"></div>
