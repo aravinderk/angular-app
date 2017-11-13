@@ -464,22 +464,51 @@ input:checked + .slider:before {
     cursor: pointer;
 }
 .schedule{
-    width: 722px; 
     border: 1px solid #979797;
 }
-.days{
-  height: 40px;
-}
-.hour:nth-child(2n) span{
+.timeslot:nth-child(2n){
    border-right: 1px solid #D0D0D0;
 }
-.hour {
-    float: left;
+.timeslot{
+  width: 2%;
+  height: 20px;
+  float: left;
 }
-.schedule span.dummySpan{
-  background: #FAFAFA;
-  height: 18px !important;
-}
-.hour:nth-child(6n) span{
+.timeslot:nth-child(6n){
    border-right:1px solid #979797;
+}
+.grey{
+  background: #DEEAFE;height: 20px;
+}
+.white{
+  background: #FAFAFA;height: 20px;
+}
+
+.toolTip{
+  	box-sizing: border-box;	
+    height: 92px;	
+    width: 182px;	
+    border: 1px solid #47D7AC;	
+    border-radius: 3px;
+}
+.toolTipHeader{
+  height: 30px;	
+  width: 180px;	
+  border: 1px solid #47D7AC;	
+  border-radius: 3px 3px 0 0;	
+  background-color: #47D7AC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+.noOfSeats,.pricePerHour{
+  height: 30px;
+}
+.noOfSeats input,.pricePerHour input{
+  height: 100%;
+  border: 0px;
+}
+#noOfSeats{
+  border-bottom: 1px solid #47D7AC;
 }

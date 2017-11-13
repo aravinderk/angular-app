@@ -1,10 +1,30 @@
 <h2>Timings</h2>
 <div class="schedule">
-    <div class="hour" ng-repeat="hour in dummyHours">     
+    <!--<div class="hour" ng-repeat="hour in dummyHours">     
         <div  ng-repeat="days in  dummyDays">
             <span ng-mouseover="changeColor($event)"></span>
             <span class="dummySpan"></span>
         </div>
-    </div>
+    </div>-->
+    <div class="hour" ng-repeat="day in dummyDays">
+        <div class="grey">
+            <div ng-repeat="hour in dummyHours" class="timeslot"></div>
+        </div>
+        <div class="white">
+            <div ng-repeat="hour in dummyHours" class="timeslot"></div>
+        </div>
+    </div> 
     <div class="clear"></div>
+</div>
+
+<div class="toolTip">
+    <div class="toolTipHeader">
+        6AM to 2PM
+    </div>
+    <div class="noOfSeats">
+        <input type="text" id="noOfSeats" placeholder="Enter no of seats"/>
+    </div>
+    <div class="pricePerHour">
+        <input type="text" id="pricePerHour" placeholder="Enter price per hour"/>
+    </div>
 </div>
