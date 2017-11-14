@@ -479,6 +479,7 @@ input:checked + .slider:before {
 }
 .grey{
   background: #DEEAFE;height: 20px;
+  cursor: pointer;
 }
 .white{
   background: #FAFAFA;height: 20px;
@@ -490,6 +491,17 @@ input:checked + .slider:before {
     width: 182px;	
     border: 1px solid #47D7AC;	
     border-radius: 3px;
+    position: absolute;
+    top: 40%;
+    left: 38%;
+    display: none;
+}
+.pricePerHour span{
+    color: #47D7AC;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
 }
 .toolTipHeader{
   height: 30px;	
@@ -504,6 +516,7 @@ input:checked + .slider:before {
 }
 .noOfSeats,.pricePerHour{
   height: 30px;
+  position: relative;
 }
 .noOfSeats input,.pricePerHour input{
   height: 100%;
@@ -518,4 +531,7 @@ input:checked + .slider:before {
 }
 .dayWrapper{
   height: 20px;
+}
+.selected{
+  background: #47D7AC;
 }

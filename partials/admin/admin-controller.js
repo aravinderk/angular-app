@@ -173,8 +173,47 @@ function AdminController($scope, AdminService, $state){
 		}
 		return timeSlots;
 	}
-	function changeColor(event){
-		$(event.target).css("background", "#47D7AC")
+	var firstClick = false;
+	var prevDay;
+	function bookSlot(event){
+		if(!firstClick){
+			prevDay = $(event.target).attr("name").split('_')[0];
+			firstClickNameId = parseInt($(event.target).attr("name").split('_')[1]);
+		}
+		firstClick = firstClick ? false : true; 
+		if(!firstClick){
+			var daySelector = $(event.target).attr("name");
+			var secondClickNameId = parseInt(daySelector.split('_')[1]);
+			if(prevDay == daySelector.split('_')[0]){
+				if(firstClickNameId > secondClickNameId){
+					var thirdCup;
+					thirdCup = secondClickNameId; 
+					secondClickNameId = firstClickNameId;
+					firstClickNameId = thirdCup;
+				}
+				for(var i = firstClickNameId; i <= secondClickNameId; i++){
+					if($('[name='+daySelector.split('_')[0]+'_'+i+']').hasClass('selected')){
+						$('[name='+daySelector.split('_')[0]+'_'+i+']').removeClass('selected');
+							
+					}else{
+						$('[name='+daySelector.split('_')[0]+'_'+i+']').addClass('selected');
+						mapScheduler(daySelector.split('_')[0], firstClickNameId, secondClickNameId);
+						$('.toolTip').show();
+					} 
+				}
+			}else{
+				alert("please select the end slot from same row")
+			}
+		}
+		 
+		console.log($(event.target).attr("name"), firstClick)
+	}
+
+	function mapScheduler (day, fSelection, sSelection){
+		console.log(day, fSelection, sSelection)
+	}
+	function saveSlot(){
+		$('.toolTip').hide();
 	}
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
@@ -204,7 +243,8 @@ function AdminController($scope, AdminService, $state){
 		$scope.saveAddOn = saveAddOn;
 		$scope.deleteAddOn = deleteAddOn;
 		$scope.cancelAddon = cancelAddon;
-		$scope.changeColor = changeColor;
+		$scope.bookSlot = bookSlot;
+		$scope.saveSlot = saveSlot;
 		// Variables in $scope 
 		$scope.statusMenuItems = AdminService.getStatusMenuItems();
 		$scope.routes = AdminService.getRoutes();
@@ -216,7 +256,7 @@ function AdminController($scope, AdminService, $state){
 		$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
 		$scope.hideAddOnSave = false;
 		$scope.dummyHours = generateTimeSlots()
-		$scope.dummyDays = ["All Weekday", "All Weekend","Monday","Tuesday","Wednesday","Thusday", "Friday", "Saturday", "Sunday"]
+		$scope.dummyDays = ["AllWeekday", "AllWeekend","Monday","Tuesday","Wednesday","Thusday", "Friday", "Saturday", "Sunday"]
 		$scope.formData = {
 			basicInfo: {},
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},

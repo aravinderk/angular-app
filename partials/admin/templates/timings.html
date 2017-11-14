@@ -7,7 +7,7 @@
 <div class="schedule">
     <div class="hour" ng-repeat="day in dummyDays">
         <div class="grey">
-            <div ng-repeat="hour in dummyHours" class="timeslot"></div>
+            <div ng-repeat="hour in dummyHours" name='{{day}}_{{$index}}' ng-click="bookSlot($event)" class="timeslot"></div>
         </div>
         <div class="white">
             <div ng-repeat="hour in dummyHours" class="timeslot"></div>
@@ -25,5 +25,6 @@
     </div>
     <div class="pricePerHour">
         <input type="text" id="pricePerHour" placeholder="Enter price per hour"/>
+        <span ng-click="saveSlot()">Next</span>
     </div>
 </div>
