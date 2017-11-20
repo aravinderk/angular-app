@@ -1,4 +1,4 @@
-angular.module('AdminControllerModule', []).controller('AdminController', AdminController);
+angular.module('AdminControllerModule', ['ng-bootstrap-datepicker']).controller('AdminController', AdminController);
 
 AdminController.$inject = ['$scope', 'AdminService', '$state'];
 
@@ -197,10 +197,11 @@ function AdminController($scope, AdminService, $state){
 							
 					}else{
 						$('[name='+daySelector.split('_')[0]+'_'+i+']').addClass('selected');
-						mapScheduler(daySelector.split('_')[0], firstClickNameId, secondClickNameId);
+						
 						$('.toolTip').show();
 					} 
 				}
+				mapScheduler(daySelector.split('_')[0], firstClickNameId, secondClickNameId);
 			}else{
 				alert("please select the end slot from same row")
 			}
@@ -210,11 +211,27 @@ function AdminController($scope, AdminService, $state){
 	}
 
 	function mapScheduler (day, fSelection, sSelection){
-		console.log(day, fSelection, sSelection)
+		var scheduleData = [];
+		var mapObj = {
+			day: day,
+			slots: []
+		}
+		angular.forEach($scope.formData.timings.scheduleSlots, function(value, index){
+			if(value.day == day || value.day == undefined ){
+				mapObj.slots.push(fSelection+"_"+sSelection)
+			}
+		})
+		debugger
+		$scope.formData.timings.scheduleSlots.push(mapObj)
+		console.log(mapObj)
 	}
 	function saveSlot(){
 		$('.toolTip').hide();
+		console.log($scope.formData.timings)
 	}
+	// function updateDate(event) {
+	// 	console.log(event);
+	// }
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -245,6 +262,7 @@ function AdminController($scope, AdminService, $state){
 		$scope.cancelAddon = cancelAddon;
 		$scope.bookSlot = bookSlot;
 		$scope.saveSlot = saveSlot;
+		//$scope.updateDate = updateDate;
 		// Variables in $scope 
 		$scope.statusMenuItems = AdminService.getStatusMenuItems();
 		$scope.routes = AdminService.getRoutes();
@@ -263,7 +281,7 @@ function AdminController($scope, AdminService, $state){
 			addOns: {addonList:[{saved: false}], savedAddonList: []},
 			engineInfo: {rooms: true, seats: false, dedicated: true},
 			configuration: {},
-			timings: {scheduleSlots:[]},
+			timings: {scheduleSlots:[],dates:{}},
 			policies: {},
 			promotions: {}
 		};
