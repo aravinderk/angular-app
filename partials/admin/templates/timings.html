@@ -4,7 +4,7 @@
         <label>Start Date</label>
         <div class="input-group date datepicker">
             
-            <input type="text" class="form-control" ng-model="timings.dates.startdate">
+            <input type="date" class="form-control" ng-model="timings.dates.startdate">
             <div class="input-group-addon">
             </div>
         </div>
@@ -13,7 +13,7 @@
         <label>End Date</label>
         <div class="input-group date datepicker">
              
-            <input type="text" class="form-control" ng-model="timings.dates.enddate">
+            <input type="date" class="form-control" ng-model="timings.dates.enddate">
             <div class="input-group-addon">
             </div>
         </div>
@@ -27,9 +27,9 @@
 </div>
 </div>
 <div class="schedule">
-    <div class="hour" ng-repeat="day in dummyDays">
+    <div class="hour" ng-repeat="day in dummyDays" day="{{day}}">
         <div class="grey">
-            <div ng-repeat="hour in dummyHours" name='{{day}}_{{$index}}' ng-click="bookSlot($event)" class="timeslot"></div>
+            <div ng-repeat="hour in dummyHours" slotIndex="{{$index}}" name='{{day}}_{{$index}}' ng-click="bookSlot($event)" class="timeslot"></div>
         </div>
         <div class="white">
             <div ng-repeat="hour in dummyHours" class="timeslot"></div>
@@ -40,13 +40,13 @@
 
 <div class="toolTip">
     <div class="toolTipHeader">
-        6AM to 2PM
+        {{tooltipStartTime}} to {{tooltipEndTime}}
     </div>
     <div class="noOfSeats">
-        <input type="text" id="noOfSeats" placeholder="Enter no of seats"/>
+        <input type="text" id="noOfSeats" placeholder="Enter no of seats" ng-model="tooltipNumOfSeats "/>
     </div>
     <div class="pricePerHour">
-        <input type="text" id="pricePerHour" placeholder="Enter price per hour"/>
+        <input type="text" id="pricePerHour" placeholder="Enter price per hour" ng-model="tooltipPricePerHour" />
         <span ng-click="saveSlot()">Next</span>
     </div>
 </div>
