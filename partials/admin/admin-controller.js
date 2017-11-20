@@ -1,8 +1,8 @@
-angular.module('AdminControllerModule', ['ng-bootstrap-datepicker']).controller('AdminController', AdminController);
+angular.module('AdminControllerModule', []).controller('AdminController', AdminController);
 
-AdminController.$inject = ['$scope', 'AdminService', '$state'];
+AdminController.$inject = ['$scope', 'AdminService', '$state', '$timeout'];
 
-function AdminController($scope, AdminService, $state){
+function AdminController($scope, AdminService, $state, $timeout){
 	
 	initController(); // Entry point for the controller
 	var cityMap = {};
@@ -28,6 +28,10 @@ function AdminController($scope, AdminService, $state){
 			$state.go($scope.routes[$scope.pageIndex], {}, { location: true });
 			// TO DO :: If required, send from data to backend
 			console.log($scope.formData);
+
+			$timeout(function(){
+				$('#datetimepicker6').datetimepicker();
+			},2000);
 		}
 	}
 
@@ -163,6 +167,9 @@ function AdminController($scope, AdminService, $state){
 		var timeSlots = [];
 		var time = 0;
 		for(var i=0; i < 24; i++){
+			if(i < 9){
+				i = '0' + i;
+			}
 			for(var j = 0; j < 2; j++){
 				if(j == 0){
 					timeSlots.push(i + ':00')
@@ -175,16 +182,22 @@ function AdminController($scope, AdminService, $state){
 	}
 	var firstClick = false;
 	var prevDay;
+	var showPopup;
 	function bookSlot(event){
+		if(showPopup){
+			return;
+		}
+		var _this = $(event.target);
+		var dayName = _this.closest('.hour').attr('day');
+		var slotIndex = parseInt(_this.attr('slotIndex'));
 		if(!firstClick){
-			prevDay = $(event.target).attr("name").split('_')[0];
-			firstClickNameId = parseInt($(event.target).attr("name").split('_')[1]);
+			prevDay = dayName;
+			firstClickNameId = slotIndex;
 		}
 		firstClick = firstClick ? false : true; 
 		if(!firstClick){
-			var daySelector = $(event.target).attr("name");
-			var secondClickNameId = parseInt(daySelector.split('_')[1]);
-			if(prevDay == daySelector.split('_')[0]){
+			var secondClickNameId = slotIndex;
+			if(prevDay == dayName){
 				if(firstClickNameId > secondClickNameId){
 					var thirdCup;
 					thirdCup = secondClickNameId; 
@@ -192,42 +205,52 @@ function AdminController($scope, AdminService, $state){
 					firstClickNameId = thirdCup;
 				}
 				for(var i = firstClickNameId; i <= secondClickNameId; i++){
-					if($('[name='+daySelector.split('_')[0]+'_'+i+']').hasClass('selected')){
-						$('[name='+daySelector.split('_')[0]+'_'+i+']').removeClass('selected');
-							
+					var elem = $('[name='+dayName+'_'+i+']');
+					if(elem.hasClass('selected')){
+						elem.removeClass('selected');
 					}else{
-						$('[name='+daySelector.split('_')[0]+'_'+i+']').addClass('selected');
-						
+						elem.addClass('selected');
+						showPopup = true;
 						$('.toolTip').show();
 					} 
 				}
-				mapScheduler(daySelector.split('_')[0], firstClickNameId, secondClickNameId);
+				$scope.tooltipStartTime = $scope.dummyHours[firstClickNameId];
+				$scope.tooltipEndTime = $scope.dummyHours[secondClickNameId+1];
+				$scope.tooltipDayName = dayName;
+				//mapScheduler(dayName, firstClickNameId, secondClickNameId);
 			}else{
 				alert("please select the end slot from same row")
 			}
 		}
 		 
-		console.log($(event.target).attr("name"), firstClick)
+		console.log(dayName, firstClick)
 	}
 
-	function mapScheduler (day, fSelection, sSelection){
+	function mapScheduler (){
 		var scheduleData = [];
-		var mapObj = {
-			day: day,
-			slots: []
+		var scheduleSlots = $scope.formData.timings.scheduleSlots;
+		if(!scheduleSlots[$scope.tooltipDayName]) {
+			scheduleSlots[$scope.tooltipDayName] = [];
 		}
-		angular.forEach($scope.formData.timings.scheduleSlots, function(value, index){
-			if(value.day == day || value.day == undefined ){
-				mapObj.slots.push(fSelection+"_"+sSelection)
-			}
+		scheduleSlots[$scope.tooltipDayName].push({
+			startTime: $scope.tooltipStartTime,
+			endTime: $scope.tooltipEndTime,
+			numOfSeats: $scope.tooltipNumOfSeats,
+			pricePerHour: $scope.tooltipPricePerHour
 		})
-		debugger
-		$scope.formData.timings.scheduleSlots.push(mapObj)
-		console.log(mapObj)
+		clearTooltipData();
+		console.log($scope.formData.timings)
 	}
 	function saveSlot(){
+		mapScheduler();
+		showPopup = false;
 		$('.toolTip').hide();
-		console.log($scope.formData.timings)
+	}
+
+	function clearTooltipData () {
+		$scope.tooltipStartTime = '';
+		$scope.tooltipEndTime = '';
+		$scope.tooltipDayName = '';
 	}
 	// function updateDate(event) {
 	// 	console.log(event);
@@ -235,8 +258,7 @@ function AdminController($scope, AdminService, $state){
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
-		}
-		
+		}	
 	});
 
 	$scope.$watch('formData.engineInfo.seats', function (newValue, oldValue) {
@@ -281,7 +303,7 @@ function AdminController($scope, AdminService, $state){
 			addOns: {addonList:[{saved: false}], savedAddonList: []},
 			engineInfo: {rooms: true, seats: false, dedicated: true},
 			configuration: {},
-			timings: {scheduleSlots:[],dates:{}},
+			timings: {scheduleSlots:{},dates:{}},
 			policies: {},
 			promotions: {}
 		};
