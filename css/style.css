@@ -535,3 +535,7 @@ input:checked + .slider:before {
 .selected{
   background: #47D7AC;
 }
+.dayRepeater {
+    width: 96px;
+    float: left;
+}
