@@ -1,7 +1,29 @@
-<h2>Timings</h2>
+<h2>Timings</h2>              
+<div class="row dateSelectorContainer">
+    <div class="col-lg-4">
+        <label>Start Date</label>
+        <div class="input-group date datepicker">
+            
+            <input type="text" class="form-control" ng-model="timings.dates.startdate">
+            <div class="input-group-addon">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <label>End Date</label>
+        <div class="input-group date datepicker">
+             
+            <input type="text" class="form-control" ng-model="timings.dates.enddate">
+            <div class="input-group-addon">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="dayWrapper">
 <div class="dayRepeater" ng-repeat="day in dummyHours"  ng-if = "($index%6) == 0">
-        <div class="day">{{day}}</div>
+        <div class="time_day">{{day}}</div>
 </div>
 </div>
 <div class="schedule">
