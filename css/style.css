@@ -539,3 +539,54 @@ input:checked + .slider:before {
     width: 96px;
     float: left;
 }
+.timePicker{
+    height: 200px;
+    border: 1px solid #D8D8D8;
+    overflow: auto;
+    clear: both;
+    width: 265px;
+    position: absolute;
+    background: #ffffff;
+    z-index: 10;
+    top: 34px;
+}
+.timePicker span{
+    height: 30px;
+    width: 50px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.timePicker span:hover{
+  background: #47D7AC;
+}
+.timepicker{
+  display: block;
+  float: left;
+}
+.timepicker{
+  margin-right: 41px;
+}
+.timepicker button{
+  width: 265px !important;
+}
+.slotSelector label{
+  display: block;
+}
+table{
+  width: 100%;
+  border: 1px solid #dedede;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+th{
+    background: #47D7AC;
+    color: #fff;
+}
