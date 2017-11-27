@@ -180,7 +180,7 @@ function AdminController($scope, AdminService, $state, $timeout){
 		}
 		return timeSlots;
 	}
-	var firstClick = false;
+	/*var firstClick = false;
 	var prevDay;
 	var showPopup;
 	function bookSlot(event){
@@ -251,10 +251,80 @@ function AdminController($scope, AdminService, $state, $timeout){
 		$scope.tooltipStartTime = '';
 		$scope.tooltipEndTime = '';
 		$scope.tooltipDayName = '';
-	}
+	}*/
 	// function updateDate(event) {
 	// 	console.log(event);
 	// }
+	function toggleTimePicker(params) {
+		if(params == 'startTime'){
+			$scope.startTimeShow = !$scope.startTimeShow;
+		}else{
+			$scope.endTimeShow = !$scope.endTimeShow;
+		}
+	}
+	function selectSlot(slotTime, slotType) {
+		var isValid = false;
+		var slotObj = {};
+		if(slotType == 'startTime'){
+			$scope.formData.timings.startTime = slotTime;
+			$scope.startTimeShow = false;
+			isValid = true;
+		}else{
+			if($scope.formData.timings.startTime < slotTime){
+				$scope.formData.timings.endTime = slotTime;
+				$scope.endTimeShow = false;
+				isValid = true;
+			}else{
+				alert("End Time can not be less than Start Time")
+			}
+		}
+		
+		if(isValid && $scope.formData.timings.endTime !== undefined){
+			slotObj = {
+				"startTime": $scope.formData.timings.startTime,
+				"endTime": $scope.formData.timings.endTime
+			}
+			$scope.formData.timings.dates.slots.push(slotObj)
+			$scope.formData.timings.startTime = undefined;
+			$scope.formData.timings.endTime = undefined;
+		}
+		console.log($scope.formData.timings.dates)
+	}
+	
+	function saveMonthSlot(params) {
+		
+		var slotObj =  { 
+			"month": angular.copy($scope.formData.timings.dates.month), 
+			"holidays":angular.copy($scope.formData.timings.holidayList), 
+			"days":angular.copy($scope.formData.timings.selectedDaysList),
+			"daysSlots":angular.copy($scope.formData.timings.dates.slots),
+			"noOfSlots": angular.copy($scope.formData.timings.noOfSlots), 
+			"price":angular.copy($scope.formData.timings.price)
+		}
+		console.log($scope.formData.timings.slotObj)
+		$scope.formData.timings.slotObj.push(slotObj)
+	}
+	function deleteHoliday(date){
+		angular.forEach($scope.formData.timings.holidayList, function(item, index){
+			if(item.$$hashKey == date.$$hashKey){
+				$scope.formData.timings.holidayList.splice(index, 1);
+			}
+		});
+	}
+	function deleteSlot(slot){
+		angular.forEach($scope.formData.timings.dates.slots, function(item, index){
+			if(item.$$hashKey == slot.$$hashKey){
+				$scope.formData.timings.dates.slots.splice(index, 1)
+			}
+		})
+	}
+	function deleteDay(day){
+		angular.forEach($scope.formData.timings.selectedDaysList, function(item, index){
+			if(item.$$hashKey == day.$$hashKey){
+				$scope.formData.timings.selectedDaysList.splice(index, 1)
+			}
+		})
+	}
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -266,6 +336,15 @@ function AdminController($scope, AdminService, $state, $timeout){
 			$scope.formData.engineInfo.rooms = oldValue;
 		}
 	});
+
+	$scope.$watch('formData.timings.dates.holidays', function(newValue, oldValue){
+		if(newValue !== null && newValue !== oldValue)
+		$scope.formData.timings.holidayList.push(newValue);
+	})
+	$scope.$watch('formData.timings.days', function(newVal, oldVal){
+		if(newVal !== undefined && $scope.formData.timings.selectedDaysList.indexOf(newVal) == -1)
+		$scope.formData.timings.selectedDaysList.push(newVal);
+	})
 
 	function initController () {
 		// Functions in $scope
@@ -282,8 +361,14 @@ function AdminController($scope, AdminService, $state, $timeout){
 		$scope.saveAddOn = saveAddOn;
 		$scope.deleteAddOn = deleteAddOn;
 		$scope.cancelAddon = cancelAddon;
-		$scope.bookSlot = bookSlot;
-		$scope.saveSlot = saveSlot;
+		$scope.toggleTimePicker = toggleTimePicker;
+		$scope.selectSlot = selectSlot;
+		$scope.saveMonthSlot = saveMonthSlot;
+		$scope.deleteSlot = deleteSlot;
+		$scope.deleteHoliday = deleteHoliday;
+		$scope.deleteDay = deleteDay;
+		//$scope.bookSlot = bookSlot;
+		//$scope.saveSlot = saveSlot;
 		//$scope.updateDate = updateDate;
 		// Variables in $scope 
 		$scope.statusMenuItems = AdminService.getStatusMenuItems();
@@ -291,19 +376,19 @@ function AdminController($scope, AdminService, $state, $timeout){
 		$scope.leftMenuItems = AdminService.getLeftMenuItems();
 		$scope.serviceTypeList = AdminService.getServiceTypeList();
 		$scope.priceUnits = AdminService.getPriceUnit();
+		$scope.monthList = AdminService.getMonths();
+		$scope.weekDayList = AdminService.getDays();
 		$scope.cityList = [];
 		$scope.imageUrls = [];
 		$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
 		$scope.hideAddOnSave = false;
-		$scope.dummyHours = generateTimeSlots()
-		$scope.dummyDays = ["AllWeekday", "AllWeekend","Monday","Tuesday","Wednesday","Thusday", "Friday", "Saturday", "Sunday"]
 		$scope.formData = {
 			basicInfo: {},
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
 			addOns: {addonList:[{saved: false}], savedAddonList: []},
 			engineInfo: {rooms: true, seats: false, dedicated: true},
 			configuration: {},
-			timings: {scheduleSlots:{},dates:{}},
+			timings: {scheduleSlots:[{"startTime":'', "endTime":''}],dates:{"slots":[]}, holidayList: [], selectedDaysList:[], slotObj:[]},
 			policies: {},
 			promotions: {}
 		};
