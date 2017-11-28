@@ -591,3 +591,6 @@ th{
     background: #47D7AC;
     color: #fff;
 }
+td span{
+  display: block;
+}
