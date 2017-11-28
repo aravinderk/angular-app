@@ -14,10 +14,12 @@ function nwookDropdown () {
 			name: '@',
 			required: '=',
 			model: '=',
-			onchange: '&'
+			onchange: '&',
+			defaultvalue : '@'
 		},
 		controller: function ($scope, $timeout) {
-			$scope.selectedVal = '';
+			$scope.selectedVal = $scope.defaultvalue || '';
+			$scope.model = $scope.defaultvalue || '';
 			$scope.change = function (e, item) {
 				e.preventDefault();
 				$scope.selectedVal = item.name
