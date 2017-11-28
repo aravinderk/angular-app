@@ -2,7 +2,7 @@
 <div class="row"> 
     <div class="form-item col-lg-4">
         <label>Month</label>
-        <nwook-dropdown id="monthSelector" items="monthList"  required="true" model="formData.timings.dates.month"></nwook-dropdown>
+        <nwook-dropdown id="monthSelector" items="monthList" defaultValue='select' required="true" model="formData.timings.dates.month"></nwook-dropdown>
         <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Month.</div>
     </div>
     
@@ -47,7 +47,7 @@
         </div>
         <div class="row">
             <div class="col-lg-4">
-                <nwook-dropdown id="daySelector" items="weekDayList"  required="true" model="formData.timings.days"></nwook-dropdown>
+                <nwook-dropdown id="daySelector" items="weekDayList" defaultValue='select'  required="true" model="formData.timings.days"></nwook-dropdown>
                 <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Month.</div>
             </div>
         </div>
@@ -68,13 +68,13 @@
     </div>
     <div ng-repeat="slot in formData.timings.scheduleSlots">
         <div class="input-group date timepicker">
-            <button class="form-control"  ng-click="toggleTimePicker('startTime')" ng-model="formData.timings.startTime">Start Time</button>
+            <button class="form-control" type="button" ng-click="toggleTimePicker('startTime')" ng-model="formData.timings.startTime">Start Time</button>
             <div class="timePicker" ng-show="startTimeShow">
                 <span class="timeSlot" ng-repeat="item in dummyHours" ng-click="selectSlot(item, 'startTime')">{{item}}</span>
             </div>
         </div>
         <div class="input-group date timepicker">
-            <button class="form-control" ng-click="toggleTimePicker('endTime')" ng-model="formData.timings.endTime">End Time</button>
+            <button class="form-control" type="button" ng-click="toggleTimePicker('endTime')" ng-model="formData.timings.endTime">End Time</button>
             <div class="timePicker" ng-show="endTimeShow">
                 <span class="timeSlot" ng-repeat="item in dummyHours" ng-click="selectSlot(item, 'endTime')">{{item}}</span>
             </div>
@@ -85,25 +85,23 @@
 <div class="row">
     <div class="form-item col-lg-4">
         <label>No of slots</label>
-        <div class="input-group date datepicker">
-            <input type="text" class="form-control" ng-model="formData.timings.noOfSlots">
-            <div class="input-group-addon">
-            </div>
+        <div class="date datepicker">
+            <input type="text" class="" ng-model="formData.timings.noOfSlots">
+            
         </div>
     </div>
     <div class="form-item col-lg-4">
         <label>Price</label>
-        <div class="input-group date datepicker">
-            <input type="text" class="form-control" ng-model="formData.timings.price">
-            <div class="input-group-addon">
-            </div>
+        <div class="date datepicker">
+            <input type="text" class="" ng-model="formData.timings.price">
+           
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-8 form-item text-right" ng-hide="hideAddOnSave">
-        <button type="button" class="button btn-small btn-green-plain" ng-click="cancelMonthSlot()">CANCEL</button>
+        <!--<button type="button" class="button btn-small btn-green-plain" ng-click="cancelMonthSlot()">CANCEL</button>-->
         <button type="button" class="button btn-small btn-green" ng-click="saveMonthSlot()">SAVE</button>
     </div>
 </div>
@@ -134,33 +132,3 @@
         </tr>
     </table>
 </div>
-<!--<div class="dayWrapper">
-<div class="dayRepeater" ng-repeat="day in dummyHours"  ng-if = "($index%6) == 0">
-        <div class="time_day">{{day}}</div>
-</div>
-</div>
-<div class="schedule">
-    <div class="hour" ng-repeat="day in dummyDays" day="{{day}}">
-        <div class="grey">
-            <div ng-repeat="hour in dummyHours" slotIndex="{{$index}}" name='{{day}}_{{$index}}' ng-click="bookSlot($event)" class="timeslot"></div>
-        </div>
-        <div class="white">
-            <div ng-repeat="hour in dummyHours" class="timeslot"></div>
-        </div>
-    </div> 
-    <div class="clear"></div>
-</div>
-
-<div class="toolTip">
-    <div class="toolTipHeader">
-        {{tooltipStartTime}} to {{tooltipEndTime}}
-    </div>
-    <div class="noOfSeats">
-        <input type="text" id="noOfSeats" placeholder="Enter no of seats" ng-model="tooltipNumOfSeats"/>
-    </div>
-    <div class="pricePerHour">
-        <input type="text" id="pricePerHour" placeholder="Enter price per hour" ng-model="tooltipPricePerHour" />
-        <span ng-click="saveSlot()">Next</span>
-    </div>
-</div>-->
-
