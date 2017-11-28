@@ -15,7 +15,9 @@ function AdminService($http){
         getPlaceDetails: getPlaceDetails,
         getAssociatedCategoryList: getAssociatedCategoryList,
         getServiceTypeList: getServiceTypeList,
-        getPriceUnit: getPriceUnit
+        getPriceUnit: getPriceUnit,
+        getMonths: getMonths,
+        getDays: getDays
     }
 
     function getStatusMenuItems () {
@@ -71,7 +73,35 @@ function AdminService($http){
             {id: 'hour', name: '/Hour'}
         ]
     }
-
+    function getMonths () {
+        return [
+            {id:'select', name: 'Select'},
+            {id: 'jan', name: 'January'},
+            {id: 'feb', name: 'Feb'},
+            {id: 'mar', name: 'March'},
+            {id: 'apr', name: 'April'},
+            {id: 'may', name: 'May'},
+            {id: 'jun', name: 'June'},
+            {id: 'jul', name: 'July'},
+            {id: 'aug', name: 'August'},
+            {id: 'sep', name: 'September'},
+            {id: 'oct', name: 'October'},
+            {id: 'nov', name: 'November'},
+            {id: 'dec', name: 'December'}
+        ]
+    }
+    function getDays () {
+        return [
+            {id:'select', name: 'Select'},
+            {id: 'mon', name:'Monday'},
+            {id: 'tue', name:'Tuesday'},
+            {id: 'wed', name:'Wednesday'},
+            {id: 'thus', name:'Thusday'},
+            {id: 'fri', name:'Friday'},
+            {id: 'sat', name:'Saturday'},
+            {id: 'sun', name:'Sunday'}
+        ]
+    }
     function getCities () {
         return $http({
             method: 'GET',
