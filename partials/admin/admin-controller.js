@@ -29,12 +29,15 @@ function AdminController($scope, AdminService, $state, $timeout){
 			// TO DO :: If required, send from data to backend
 			console.log($scope.formData);
 
-			$timeout(function(){
-				$('#datetimepicker6').datetimepicker();
-			},2000);
+			
 		}
 	}
-
+	$transitions.onSuccess({}, function(trans) {
+			$scope.pageIndex = $scope.routes.indexOf(trans.$to().name) || 0;
+			if(trans.$to().name == 'admin.facilityTags') {
+					$scope.showSpaceImg = false;
+			}
+	});
 	// This will handle state dropdown change
 	function handleStateChange () {
 		$scope.cityList = cityMap[$scope.formData.basicInfo.state];
@@ -161,8 +164,10 @@ function AdminController($scope, AdminService, $state, $timeout){
 				$scope.spaceForm.$pristine = true;
 				$scope.hideAddOnSave = true;
 	}
+	function multiSelectHolidayCaolender (event) {
 
-	// Functions related to Admin Addon Page end here 
+	}
+	//Functions related to Admin Addon Page end here 
 	function generateTimeSlots(){
 		var timeSlots = [];
 		var time = 0;
@@ -180,81 +185,7 @@ function AdminController($scope, AdminService, $state, $timeout){
 		}
 		return timeSlots;
 	}
-	/*var firstClick = false;
-	var prevDay;
-	var showPopup;
-	function bookSlot(event){
-		if(showPopup){
-			return;
-		}
-		var _this = $(event.target);
-		var dayName = _this.closest('.hour').attr('day');
-		var slotIndex = parseInt(_this.attr('slotIndex'));
-		if(!firstClick){
-			prevDay = dayName;
-			firstClickNameId = slotIndex;
-		}
-		firstClick = firstClick ? false : true; 
-		if(!firstClick){
-			var secondClickNameId = slotIndex;
-			if(prevDay == dayName){
-				if(firstClickNameId > secondClickNameId){
-					var thirdCup;
-					thirdCup = secondClickNameId; 
-					secondClickNameId = firstClickNameId;
-					firstClickNameId = thirdCup;
-				}
-				for(var i = firstClickNameId; i <= secondClickNameId; i++){
-					var elem = $('[name='+dayName+'_'+i+']');
-					if(elem.hasClass('selected')){
-						elem.removeClass('selected');
-					}else{
-						elem.addClass('selected');
-						showPopup = true;
-						$('.toolTip').show();
-					} 
-				}
-				$scope.tooltipStartTime = $scope.dummyHours[firstClickNameId];
-				$scope.tooltipEndTime = $scope.dummyHours[secondClickNameId+1];
-				$scope.tooltipDayName = dayName;
-				//mapScheduler(dayName, firstClickNameId, secondClickNameId);
-			}else{
-				alert("please select the end slot from same row")
-			}
-		}
-		 
-		console.log(dayName, firstClick)
-	}
 
-	function mapScheduler (){
-		var scheduleData = [];
-		var scheduleSlots = $scope.formData.timings.scheduleSlots;
-		if(!scheduleSlots[$scope.tooltipDayName]) {
-			scheduleSlots[$scope.tooltipDayName] = [];
-		}
-		scheduleSlots[$scope.tooltipDayName].push({
-			startTime: $scope.tooltipStartTime,
-			endTime: $scope.tooltipEndTime,
-			numOfSeats: $scope.tooltipNumOfSeats,
-			pricePerHour: $scope.tooltipPricePerHour
-		})
-		clearTooltipData();
-		console.log($scope.formData.timings)
-	}
-	function saveSlot(){
-		mapScheduler();
-		showPopup = false;
-		$('.toolTip').hide();
-	}
-
-	function clearTooltipData () {
-		$scope.tooltipStartTime = '';
-		$scope.tooltipEndTime = '';
-		$scope.tooltipDayName = '';
-	}*/
-	// function updateDate(event) {
-	// 	console.log(event);
-	// }
 	function toggleTimePicker(params) {
 		if(params == 'startTime'){
 			$scope.startTimeShow = !$scope.startTimeShow;
@@ -303,6 +234,7 @@ function AdminController($scope, AdminService, $state, $timeout){
 		}
 		console.log($scope.formData.timings.slotObj)
 		$scope.formData.timings.slotObj.push(slotObj)
+		clearTimingFields();
 	}
 	function deleteHoliday(date){
 		angular.forEach($scope.formData.timings.holidayList, function(item, index){
@@ -325,6 +257,14 @@ function AdminController($scope, AdminService, $state, $timeout){
 			}
 		})
 	}
+	function clearTimingFields (){
+		$scope.formData.timings.dates.month = '';
+		$scope.formData.timings.holidayList = [];
+		$scope.formData.timings.selectedDaysList = [];
+		$scope.formData.timings.dates.slots = [];
+		$scope.formData.timings.noOfSlots = '';
+		$scope.formData.timings.price = '';
+	}
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -342,10 +282,9 @@ function AdminController($scope, AdminService, $state, $timeout){
 		$scope.formData.timings.holidayList.push(newValue);
 	})
 	$scope.$watch('formData.timings.days', function(newVal, oldVal){
-		if(newVal !== undefined && $scope.formData.timings.selectedDaysList.indexOf(newVal) == -1)
+		if(newVal != 'select' && newVal !== undefined && $scope.formData.timings.selectedDaysList.indexOf(newVal) == -1)
 		$scope.formData.timings.selectedDaysList.push(newVal);
 	})
-
 	function initController () {
 		// Functions in $scope
 		$scope.handleNext = HandleNext;
@@ -367,8 +306,8 @@ function AdminController($scope, AdminService, $state, $timeout){
 		$scope.deleteSlot = deleteSlot;
 		$scope.deleteHoliday = deleteHoliday;
 		$scope.deleteDay = deleteDay;
-		//$scope.bookSlot = bookSlot;
-		//$scope.saveSlot = saveSlot;
+		// $scope.bookSlot = bookSlot;
+		// $scope.saveSlot = saveSlot;
 		//$scope.updateDate = updateDate;
 		// Variables in $scope 
 		$scope.statusMenuItems = AdminService.getStatusMenuItems();
@@ -382,6 +321,11 @@ function AdminController($scope, AdminService, $state, $timeout){
 		$scope.imageUrls = [];
 		$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
 		$scope.hideAddOnSave = false;
+		$scope.dummyHours = generateTimeSlots();
+		$scope.startTimeShow = false;
+		$scope.endTimeShow = false;
+
+		// $scope.dummyDays = ["AllWeekday", "AllWeekend","Monday","Tuesday","Wednesday","Thusday", "Friday", "Saturday", "Sunday"]
 		$scope.formData = {
 			basicInfo: {},
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
@@ -392,7 +336,10 @@ function AdminController($scope, AdminService, $state, $timeout){
 			policies: {},
 			promotions: {}
 		};
-		
+		$scope.tooltipStartTime = '';
+		$scope.tooltipEndTime = '';
+		$scope.tooltipNumOfSeats = '';
+		$scope.tooltipPricePerHour = '';
 		AdminService.getCities().then(function(data){
 			data.forEach(function(item) {
 				if(!cityMap[item.state_map]){
