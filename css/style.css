@@ -567,10 +567,11 @@ input:checked + .slider:before {
   float: left;
 }
 .timepicker{
-  margin-right: 41px;
+  margin-right: 30px;
 }
 .timepicker button{
-  width: 265px !important;
+  width: 275px !important;
+  border-radius: 0px;
 }
 .slotSelector label{
   display: block;
