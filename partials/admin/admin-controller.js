@@ -1,8 +1,8 @@
 angular.module('AdminControllerModule', []).controller('AdminController', AdminController);
 
-AdminController.$inject = ['$scope', 'AdminService', '$state', '$timeout'];
+AdminController.$inject = ['$scope', 'AdminService', '$state', '$timeout','$transitions'];
 
-function AdminController($scope, AdminService, $state, $timeout){
+function AdminController($scope, AdminService, $state, $timeout, $transitions){
 	
 	initController(); // Entry point for the controller
 	var cityMap = {};
@@ -185,7 +185,7 @@ function AdminController($scope, AdminService, $state, $timeout){
 		}
 		return timeSlots;
 	}
-
+	
 	function toggleTimePicker(params) {
 		if(params == 'startTime'){
 			$scope.startTimeShow = !$scope.startTimeShow;
@@ -251,11 +251,8 @@ function AdminController($scope, AdminService, $state, $timeout){
 		})
 	}
 	function deleteDay(day){
-		angular.forEach($scope.formData.timings.selectedDaysList, function(item, index){
-			if(item.$$hashKey == day.$$hashKey){
-				$scope.formData.timings.selectedDaysList.splice(index, 1)
-			}
-		})
+		var index = $scope.formData.timings.selectedDaysList.indexOf(day)
+		$scope.formData.timings.selectedDaysList.splice(index, 1)
 	}
 	function clearTimingFields (){
 		$scope.formData.timings.dates.month = '';
