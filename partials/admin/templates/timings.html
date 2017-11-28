@@ -2,8 +2,8 @@
 <div class="row"> 
     <div class="form-item col-lg-4">
         <label>Month</label>
-        <nwook-dropdown id="monthSelector" items="monthList" defaultValue='select' required="true" model="formData.timings.dates.month"></nwook-dropdown>
-        <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Month.</div>
+        <nwook-dropdown id="monthSelector" items="monthList" defaultValue='select' model="formData.timings.dates.month"></nwook-dropdown>
+        <!--<div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Month.</div>-->
     </div>
     
 </div> 
@@ -47,8 +47,8 @@
         </div>
         <div class="row">
             <div class="col-lg-4">
-                <nwook-dropdown id="daySelector" items="weekDayList" defaultValue='select'  required="true" model="formData.timings.days"></nwook-dropdown>
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Month.</div>
+                <nwook-dropdown id="daySelector" items="weekDayList" defaultValue='select'   model="formData.timings.days"></nwook-dropdown>
+                <!--<div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Month.</div>-->
             </div>
         </div>
     </div>
