@@ -3,7 +3,7 @@
     <div class="form-item col-lg-4">
         <label>Month</label>
         <nwook-dropdown id="monthSelector" items="monthList" defaultValue='select' model="formData.timings.dates.month"></nwook-dropdown>
-        <!--<div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Month.</div>-->
+        <div class="error" ng-show="timingError.month">Please select month</div>
     </div>
     
 </div> 
@@ -48,7 +48,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <nwook-dropdown id="daySelector" items="weekDayList" defaultValue='select'   model="formData.timings.days"></nwook-dropdown>
-                <!--<div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Month.</div>-->
+                <div class="error" ng-show="timingError.day">Please select day</div>
             </div>
         </div>
     </div>
@@ -80,21 +80,22 @@
             </div>
         </div>
     </div>
+    
 </div>
- 
+ <div class="error" ng-show="timingError.slots" style="clear: both">Please select slots</div>
 <div class="row">
     <div class="form-item col-lg-4">
         <label>No of slots</label>
-        <div class="date datepicker">
+        <div class="slotsDetail">
             <input type="text" class="" ng-model="formData.timings.noOfSlots">
-            
+            <div class="error" ng-show="timingError.noOfSlots">Please select no. of slots</div>
         </div>
     </div>
     <div class="form-item col-lg-4">
         <label>Price</label>
-        <div class="date datepicker">
+        <div class="slotsDetail">
             <input type="text" class="" ng-model="formData.timings.price">
-           
+           <div class="error" ng-show="timingError.price">Please select price</div>
         </div>
     </div>
 </div>

@@ -26,9 +26,9 @@ angular.module('nwookManager', ['ui.router', 'AdminModule'])
             url: '/engine-info',
             templateUrl: './partials/admin/templates/engineInfo.html'
         })
-        .state('admin.configuration', {
-            url: '/configuration',
-            templateUrl: './partials/admin/templates/configuration.html'
+        .state('admin.enableAddon', {
+            url: '/enableAddon',
+            templateUrl: './partials/admin/templates/enableAddon.html'
         })
         .state('admin.timings', {
             url: '/timings',

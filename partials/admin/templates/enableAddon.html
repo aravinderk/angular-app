@@ -1,0 +1,46 @@
+<h2>Enable space as an add on?</h2>
+
+<div class="switch-container">
+    <span class="input-label">Yes</span>
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+    <span class="input-label">No</span>
+</div>
+<div class="formEnableSpace">
+<div class="row">
+ <div class="form-item col-lg-6">
+    <label>Month</label>
+    <nwook-dropdown id="monthSelector" items="monthList" defaultValue='select' model="formData.timings.dates.month"></nwook-dropdown>
+    <div class="error" ng-show="timingError.month">Please select month</div>
+</div>
+</div>
+<div class="row">
+<div class="form-item col-lg-6">
+    <label>Price</label>
+    <div class="">
+        <input type="text" class="" ng-model="formData.configurations.price">
+        <div class="error" ng-show="timingError.price">Please select price</div>
+    </div>
+</div>
+</div>
+<div class="row">
+<div class="form-item col-lg-6">
+    <label>No of hours</label>
+    <div class="">
+        <input type="text" class="" ng-model="formData.configurations.noOfHours">
+        <div class="error" ng-show="timingError.noOfHours">Please select price</div>
+    </div>
+</div>
+</div>
+<div class="row">
+<div class="form-item col-lg-6">
+    <label>Quantity</label>
+    <div class="">
+        <input type="text" class="" ng-model="formData.configurations.quantity">
+        <div class="error" ng-show="timingError.quantity">Please select Quantity</div>
+    </div>
+</div>
+</div>
+</div>

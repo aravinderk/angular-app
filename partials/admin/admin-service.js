@@ -27,7 +27,7 @@ function AdminService($http){
 			{title: 'Add-ons'},
 			{title: 'Engine Info'},
 			{title: 'Configuration'},
-			{title: 'Timings'},
+			{title: 'ITR'},
 			{title: 'Policies'},
 			{title: 'Promotions'},
 			{title: 'Complete!'}
@@ -40,7 +40,7 @@ function AdminService($http){
             'admin.facilityTags',
             'admin.addons',
             'admin.engineInfo',
-            'admin.configuration',
+            'admin.enableAddon',
             'admin.timings',
             'admin.policies',
             'admin.promotions',

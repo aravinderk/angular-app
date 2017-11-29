@@ -164,9 +164,6 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 				$scope.spaceForm.$pristine = true;
 				$scope.hideAddOnSave = true;
 	}
-	function multiSelectHolidayCaolender (event) {
-
-	}
 	//Functions related to Admin Addon Page end here 
 	function generateTimeSlots(){
 		var timeSlots = [];
@@ -223,7 +220,9 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 	}
 	
 	function saveMonthSlot(params) {
-		
+		if(!validateTimingsSlots()){
+			return false;
+		}
 		var slotObj =  { 
 			"month": angular.copy($scope.formData.timings.dates.month), 
 			"holidays":angular.copy($scope.formData.timings.holidayList), 
@@ -261,6 +260,38 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		$scope.formData.timings.dates.slots = [];
 		$scope.formData.timings.noOfSlots = '';
 		$scope.formData.timings.price = '';
+	}
+	function validateTimingsSlots (){
+		var isValid = true;
+		$scope.timingError.month = false;
+		$scope.timingError.day = false;
+		$scope.timingError.slots=false;
+		$scope.timingError.noOfSlots = false;
+		$scope.timingError.price = false;
+		if($scope.formData.timings.dates.month == '' || $scope.formData.timings.dates.month == 'select'){
+			isValid = false;
+			$scope.timingError.month = true;
+		}
+		// if($scope.formData.timings.holidayList.length == 0){
+		// 	isValid = false;
+		// }
+		if($scope.formData.timings.selectedDaysList.length == 0){
+			isValid = false;
+			$scope.timingError.day = true;
+		}
+		if($scope.formData.timings.dates.slots.length == 0){
+			isValid = false;
+			$scope.timingError.slots=true;
+		}
+		if($scope.formData.timings.noOfSlots == undefined || $scope.formData.timings.noOfSlots == ''){
+			isValid = false;
+			$scope.timingError.noOfSlots = true
+		}
+		if($scope.formData.timings.price == undefined || $scope.formData.timings.price == ''){
+			isValid = false;
+			$scope.timingError.price = true
+		}
+		return isValid;
 	}
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
@@ -321,6 +352,8 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		$scope.dummyHours = generateTimeSlots();
 		$scope.startTimeShow = false;
 		$scope.endTimeShow = false;
+		$scope.timingError = {
+		};
 
 		// $scope.dummyDays = ["AllWeekday", "AllWeekend","Monday","Tuesday","Wednesday","Thusday", "Friday", "Saturday", "Sunday"]
 		$scope.formData = {

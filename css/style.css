@@ -570,7 +570,7 @@ input:checked + .slider:before {
   margin-right: 30px;
 }
 .timepicker button{
-  width: 275px !important;
+  width: 245px !important;
   border-radius: 0px;
 }
 .slotSelector label{
@@ -593,4 +593,7 @@ th{
 }
 td span{
   display: block;
+}
+.slotsDetail input{
+  width: 245px;
 }
