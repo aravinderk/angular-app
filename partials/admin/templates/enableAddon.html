@@ -3,16 +3,17 @@
 <div class="switch-container">
     <span class="input-label">Yes</span>
     <label class="switch">
-        <input type="checkbox">
+        <input type="checkbox" ng-model="formData.configurations.enableSpace">
         <span class="slider round"></span>
     </label>
     <span class="input-label">No</span>
 </div>
+{{formData.configurations.enableSpace}}
 <div class="formEnableSpace">
 <div class="row">
  <div class="form-item col-lg-6">
-    <label>Month</label>
-    <nwook-dropdown id="monthSelector" items="monthList" defaultValue='select' model="formData.timings.dates.month"></nwook-dropdown>
+    <label>Choose a space</label>
+    <nwook-dropdown id="spaceSelector" disabled="formData.configurations.enableSpace" items="monthList" defaultValue='select' model="formData.configurations.selectSpace"></nwook-dropdown>
     <div class="error" ng-show="timingError.month">Please select month</div>
 </div>
 </div>
@@ -20,7 +21,7 @@
 <div class="form-item col-lg-6">
     <label>Price</label>
     <div class="">
-        <input type="text" class="" ng-model="formData.configurations.price">
+        <input type="text" ng-disabled="formData.configurations.enableSpace" class="" ng-model="formData.configurations.price">
         <div class="error" ng-show="timingError.price">Please select price</div>
     </div>
 </div>
@@ -29,7 +30,7 @@
 <div class="form-item col-lg-6">
     <label>No of hours</label>
     <div class="">
-        <input type="text" class="" ng-model="formData.configurations.noOfHours">
+        <input type="text" class="" ng-disabled="formData.configurations.enableSpace" ng-model="formData.configurations.noOfHours">
         <div class="error" ng-show="timingError.noOfHours">Please select price</div>
     </div>
 </div>
@@ -38,7 +39,7 @@
 <div class="form-item col-lg-6">
     <label>Quantity</label>
     <div class="">
-        <input type="text" class="" ng-model="formData.configurations.quantity">
+        <input type="text" class=""  ng-disabled="formData.configurations.enableSpace" ng-model="formData.configurations.quantity">
         <div class="error" ng-show="timingError.quantity">Please select Quantity</div>
     </div>
 </div>

@@ -15,7 +15,8 @@ function nwookDropdown () {
 			required: '=',
 			model: '=',
 			onchange: '&',
-			defaultvalue : '@'
+			defaultvalue : '@',
+			disabled: '='
 		},
 		controller: function ($scope, $timeout) {
 			$scope.selectedVal = $scope.defaultvalue || '';
@@ -25,10 +26,18 @@ function nwookDropdown () {
 				$scope.selectedVal = item.name
 				$scope.model = item.id;
 				$scope.onchange && $timeout($scope.onchange);
+			},
+			$scope.disableDropdown = function(){
+				var disClass = 'disabled'
+				if(!$scope.disabled){
+					disClass = ''
+				}
+				return disClass
 			}
+
 		},
 		template: '<div class="dropdown nwook-dropdown">'+
-					'<button class="dropdown-toggle" id="{{id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'+
+					'<button class="dropdown-toggle" type="button" id="{{id}}" ng-class="disableDropdown()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'+
 						'<span>{{ model && selectedVal}}</span>'+
 						'<span class="caret"></span>'+
 					'</button>'+
