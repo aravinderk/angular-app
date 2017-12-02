@@ -343,8 +343,10 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		$scope.leftMenuItems = AdminService.getLeftMenuItems();
 		$scope.serviceTypeList = AdminService.getServiceTypeList();
 		$scope.priceUnits = AdminService.getPriceUnit();
+		$scope.discountUnit = AdminService.getDiscountUnit();
 		$scope.monthList = AdminService.getMonths();
 		$scope.weekDayList = AdminService.getDays();
+		$scope.selectAddOnList = AdminService.getAddOnList()
 		$scope.cityList = [];
 		$scope.imageUrls = [];
 		$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
@@ -361,7 +363,7 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
 			addOns: {addonList:[{saved: false}], savedAddonList: []},
 			engineInfo: {rooms: true, seats: false, dedicated: true},
-			configuration: {},
+			configuration: {packageConfigList:[{"name":"test"}],selectAddOn: []},
 			timings: {scheduleSlots:[{"startTime":'', "endTime":''}],dates:{"slots":[]}, holidayList: [], selectedDaysList:[], slotObj:[]},
 			policies: {},
 			promotions: {}

@@ -17,7 +17,9 @@ function AdminService($http){
         getServiceTypeList: getServiceTypeList,
         getPriceUnit: getPriceUnit,
         getMonths: getMonths,
-        getDays: getDays
+        getDays: getDays,
+        getDiscountUnit: getDiscountUnit,
+        getAddOnList: getAddOnList
     }
 
     function getStatusMenuItems () {
@@ -40,7 +42,7 @@ function AdminService($http){
             'admin.facilityTags',
             'admin.addons',
             'admin.engineInfo',
-            'admin.enableAddon',
+            'admin.configuration',
             'admin.timings',
             'admin.policies',
             'admin.promotions',
@@ -73,6 +75,20 @@ function AdminService($http){
             {id: 'hour', name: '/Hour'}
         ]
     }
+    function getAddOnList () {
+        return [
+            {id: 'water', name: 'Water'},
+            {id: 'coffee', name: 'Coffee'}
+        ]
+    }
+    
+    function getDiscountUnit () {
+        return [
+            {id: 'Rs', name: '/Rs'},
+            {id: 'USD', name: '/USD'}
+        ]
+    }
+    
     function getMonths () {
         return [
             {id:'select', name: 'Select'},
