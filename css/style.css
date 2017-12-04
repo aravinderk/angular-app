@@ -601,3 +601,7 @@ td span{
   background: #ebebe4 !important;
   cursor: default !important;
 }
+.packageName input{
+  border: 0px;
+  border-bottom: 1px solid #D8D8D8;
+}

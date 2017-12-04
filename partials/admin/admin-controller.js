@@ -124,31 +124,53 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		}
 	}
 	// Functions related to Admin Addon Page start here 
-	function createAddon(){
-		$scope.formData.addOns.addonList.push({saved: false})
+	function createAddon(addonType, index){
+		var list = getAddonList(addonType, index)
+		list.push({saved: false})
 		$scope.hideAddOnSave = false;
 	}
-	function saveAddOn(){
+	function getAddonList (addOnType, index){
+		var list = $scope.formData.addOns.addonList
+		if(addOnType == 'configAddOn'){
+			list = $scope.formData.configuration.packageConfigList[index].addonList
+		}
+		console.log(list)
+		return list;
+	}
+	function saveAddOn(addonType, index){
+		
 		$scope.spaceForm.$submitted = true;
+		var list = getAddonList(addonType, index)
 		if($scope.spaceForm.$valid){
-			angular.forEach($scope.formData.addOns.addonList,function(item, index){
+			angular.forEach(list,function(item, index){
 				item['saved'] = true;
 			})
 			$scope.spaceForm.$submitted = false;
-			$scope.hideAddOnSave = true;
+			if(addonType  == 'configAddOn'){
+				list.hideAddOnSave = false
+			}else{
+				$scope.hideAddOnSave = false
+			}
 			$scope.spaceForm.$pristine = true;
 		}
 		
 	}
-	function deleteAddOn(addOn){
-		angular.forEach($scope.formData.addOns.addonList, function(item, index){
+	function deleteAddOn(addOn, addonType, index){
+		var list = getAddonList(addonType, index)
+		angular.forEach(list, function(item, index){
 			if(item.$$hashKey == addOn.$$hashKey){
-				$scope.formData.addOns.addonList.splice(index, 1)
+				list.splice(index, 1)
 			}
 		})
-		if($scope.formData.addOns.addonList.length == 0){
-			$scope.formData.addOns.addonList.push({saved: false})
+		if(list.length == 0){
+			list.push({saved: false})
 			$scope.spaceForm.$submitted = false;
+			if(addonType  == 'configAddOn'){
+				list.hideAddOnSave = false
+			}else{
+				$scope.hideAddOnSave = false
+			}
+			
 		}
 	}
 
@@ -293,6 +315,9 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		}
 		return isValid;
 	}
+	function createAnotherPackage(params) {
+		$scope.formData.configuration.packageConfigList.push({selectAddOn: [], addonList:[{saved: false}]})
+	}	
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -334,6 +359,7 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		$scope.deleteSlot = deleteSlot;
 		$scope.deleteHoliday = deleteHoliday;
 		$scope.deleteDay = deleteDay;
+		$scope.createAnotherPackage = createAnotherPackage;
 		// $scope.bookSlot = bookSlot;
 		// $scope.saveSlot = saveSlot;
 		//$scope.updateDate = updateDate;
@@ -363,7 +389,7 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
 			addOns: {addonList:[{saved: false}], savedAddonList: []},
 			engineInfo: {rooms: true, seats: false, dedicated: true},
-			configuration: {packageConfigList:[{"name":"test"}],selectAddOn: []},
+			configuration: {packageConfigList:[{selectAddOn: [], addonList:[{saved: false}]}]},
 			timings: {scheduleSlots:[{"startTime":'', "endTime":''}],dates:{"slots":[]}, holidayList: [], selectedDaysList:[], slotObj:[]},
 			policies: {},
 			promotions: {}
