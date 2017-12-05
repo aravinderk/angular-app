@@ -568,9 +568,9 @@ input:checked + .slider:before {
 }
 .timepicker{
   margin-right: 30px;
+  width: 31.50%;
 }
 .timepicker button{
-  width: 245px !important;
   border-radius: 0px;
 }
 .slotSelector label{
@@ -594,9 +594,6 @@ th{
 td span{
   display: block;
 }
-.slotsDetail input{
-  width: 245px;
-}
 .disabled{
   background: #ebebe4 !important;
   cursor: default !important;
@@ -604,4 +601,18 @@ td span{
 .packageName input{
   border: 0px;
   border-bottom: 1px solid #D8D8D8;
+}
+.configDiscountTable th{
+  background: transparent;
+  border: none;
+}
+.configDiscountTable table{
+  border: 0px;
+  margin-top: 10px;
+}
+.configDiscountTable input{
+  border: 0px;
+  padding: 0px;
+  text-align: center;
+  height: 25px;
 }

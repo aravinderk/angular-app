@@ -23,6 +23,21 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 					return;
 				}
 			}
+			if($scope.pageIndex === 3){
+				$scope.packageConfigEnable = true;
+				$scope.enableAdon = false
+				$scope.dedicatedSeatEnable = false;
+			}
+			if($scope.pageIndex == 4){
+				$scope.packageConfigEnable = false;
+				if(!$scope.enableAdon){
+					$scope.enableAdon = true;
+				}else{
+					$scope.enableAdon = false;
+					$scope.dedicatedSeatEnable = true;
+				}
+				return;
+			}
 			$scope.pageIndex++;
 			$scope.spaceForm.$submitted = false;
 			$state.go($scope.routes[$scope.pageIndex], {}, { location: true });
@@ -36,6 +51,11 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 			$scope.pageIndex = $scope.routes.indexOf(trans.$to().name) || 0;
 			if(trans.$to().name == 'admin.facilityTags') {
 					$scope.showSpaceImg = false;
+			}
+			if(trans.$to().name == 'admin.timings'){
+				$scope.packageConfigEnable = true;
+				$scope.enableAdon = false
+				$scope.dedicatedSeatEnable = false;
 			}
 	});
 	// This will handle state dropdown change
@@ -318,6 +338,11 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 	function createAnotherPackage(params) {
 		$scope.formData.configuration.packageConfigList.push({selectAddOn: [], addonList:[{saved: false}]})
 	}	
+	function createAnotherConfig (){
+		$scope.formData.configuration.dedicatedSeatConfig.push({
+						selectAddOn: []
+					})
+	}
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -360,6 +385,7 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		$scope.deleteHoliday = deleteHoliday;
 		$scope.deleteDay = deleteDay;
 		$scope.createAnotherPackage = createAnotherPackage;
+		$scope.createAnotherConfig = createAnotherConfig;
 		// $scope.bookSlot = bookSlot;
 		// $scope.saveSlot = saveSlot;
 		//$scope.updateDate = updateDate;
@@ -380,6 +406,9 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		$scope.dummyHours = generateTimeSlots();
 		$scope.startTimeShow = false;
 		$scope.endTimeShow = false;
+		$scope.packageConfigEnable = true;
+		$scope.enableAdon = false;
+		$scope.dedicatedSeatEnable = false;
 		$scope.timingError = {
 		};
 
@@ -389,7 +418,15 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
 			addOns: {addonList:[{saved: false}], savedAddonList: []},
 			engineInfo: {rooms: true, seats: false, dedicated: true},
-			configuration: {packageConfigList:[{selectAddOn: [], addonList:[{saved: false}]}]},
+			configuration: {
+				packageConfigList:[{
+					selectAddOn: [], 
+					addonList:[{saved: false}]
+				}], 
+				dedicatedSeatConfig:[{
+						selectAddOn: []
+					}]
+				},
 			timings: {scheduleSlots:[{"startTime":'', "endTime":''}],dates:{"slots":[]}, holidayList: [], selectedDaysList:[], slotObj:[]},
 			policies: {},
 			promotions: {}

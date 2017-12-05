@@ -1,147 +1,259 @@
-<h2>Package Configuration</h2>
-
-<div class="wrapper" ng-repeat="item in formData.configuration.packageConfigList"> 
-        <div class="row">
-            <div class="col-lg-4 packageName">
-                <input type="text" placeholder="Package Name" name="packageName" ng-model="item.packageName"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.hourRate_{{$index}}.$error.required)}">
-                <div class="help-text">Name</div>
-                <input type="text" name="hourRate_{{$index}}" ng-model="item.hourRate" required />
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.configurationName_{{$index}}.$error.required">Please enter name.</div>
-            </div>
-
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.hour_{{$index}}.$error.required)}">
-                <div class="help-text">hour</div>
-                <input type="text" name="hour_{{$index}}" ng-model="item.hour" required />
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.hour_{{$index}}.$error.required">Please enter hour.</div>
-            </div>
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && (spaceForm.price_{{$index}}.$error.required || spaceForm.discountPerUnit_{{$index}}.$error.required))}">
-                <div class="help-text">discount per unit/hour</div>
-                <nwook-input-dropdown id="discountPerUnit" dropdown-items="discountUnit" dropdown-name="discountPerUnit_{{$index}}" dropdown-model="item.discountUnit" input-name="discount_{{$index}}" input-model="item.discount" required="true"></nwook-input-dropdown>
-                <div class="error" ng-show="spaceForm.$submitted && (spaceForm.discountPerUnit_{{$index}}.$error.required || spaceForm.discount_{{$index}}.$error.required)">Please enter discount Per unit/hour.</div>
-            </div>
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.validity_{{$index}}.$error.required)}">
-                <div class="help-text">Validity</div>
-                <nwook-dropdown id="serviceType" items="serviceTypeList" name="validity_{{$index}}" model="item.validity" required="true"></nwook-dropdown>
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.validity_{{$index}}.$error.required">Please select validity.</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.planTag_{{$index}}.$error.required)}">
-                <div class="help-text">Plan Tag Text</div>
-                <input type="text" name="planTag_{{$index}}" ng-model="item.planTag"  />
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.planTag_{{$index}}.$error.required">Please enter sub add-on pricing.</div>
-            </div>
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.offerText_{{$index}}.$error.required)}">
-                <div class="help-text">Offer Text</div>
-                <input type="text" name="offerText_{{$index}}" ng-model="item.offerText"  />
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.offerText_{{$index}}.$error.required">Please enter hours.</div>
-            </div>
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.planTag_{{$index}}.$error.required)}">
-                
-            </div>
-            <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.offerText_{{$index}}.$error.required)}">
-                <div class="help-text">Expires On</div>
-                <input type="text" name="offerText_{{$index}}" ng-model="item.expireOn"  />
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.offerText_{{$index}}.$error.required">Please enter hours.</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-item col-lg-5" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.selectAddOn.$error.required && formData.configuration.selectAddOn.length <= 0)}">
-                <div class="label"></div>
-                <div class="help-text">Select add-ons</div>
-                <nwook-filter-dropdown id="selectAddOnDropdown" items="selectAddOnList" name="selectAddOn" model="item.selectAddOn" required="true"></nwook-filter-dropdown>
-                <div class="error" ng-show="spaceForm.$submitted && spaceForm.selectAddOn.$error.required && formData.configuration.selectAddOn.length <= 0">Please select associated category.</div>
-            </div>
-        </div>
-        <br/>
-        <div class="group-title">Create an add-on</div>
-        <div class="tags-container addOnTag">
+<div class="configurationPackage" ng-show="packageConfigEnable">
+    <h2>Package Configuration</h2>
+    <div  class="wrapper" ng-repeat="item in formData.configuration.packageConfigList"> 
             <div class="row">
-                <div class="col-xs-2 padding0 ng-scope" ng-repeat="addOn in item.addonList | filter: {saved: true}">
-                    <button type="button" class="button btn-round btn-green ng-binding">{{item.addonList[$index].addOnName}}</button>
-                    <span class="deleteAddon" ng-click="$parent.deleteAddOn(addOn, 'configAddOn', $index)">x</span>
-                </div>
-                
-            </div>
-        </div>
-        <div class="addon-container">
-            <div class="wrapper" ng-repeat="item in item.addonList | filter: {saved: false}"> 
-                <div class="row">
-                    <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnName_{{$index}}.$error.required)}">
-                        <div class="help-text">Name</div>
-                        <input type="text" name="addOnName_{{$index}}" ng-model="item.addOnName" required />
-                        <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnName_{{$index}}.$error.required">Please enter name.</div>
-                    </div>
-
-                    <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.inventory_{{$index}}.$error.required)}">
-                        <div class="help-text">Inventory</div>
-                        <input type="text" name="inventory_{{$index}}" ng-model="item.inventory" required />
-                        <div class="error" ng-show="spaceForm.$submitted && spaceForm.inventory_{{$index}}.$error.required">Please enter Inventory.</div>
-                    </div>
-                    <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && (spaceForm.price_{{$index}}.$error.required || spaceForm.pricePerUnit_{{$index}}.$error.required))}">
-                        <div class="help-text">Price per unit/hour</div>
-                        <nwook-input-dropdown id="pricePerUnit" dropdown-items="priceUnits" dropdown-name="pricePerUnit_{{$index}}" dropdown-model="item.priceUnit" input-name="price_{{$index}}" input-model="item.price" required="true"></nwook-input-dropdown>
-                        <div class="error" ng-show="spaceForm.$submitted && (spaceForm.pricePerUnit_{{$index}}.$error.required || spaceForm.price_{{$index}}.$error.required)">Please enter Price Per unit/hour.</div>
-                    </div>
-                    <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required)}">
-                        <div class="help-text">Free or paid</div>
-                        <nwook-dropdown id="serviceType" items="serviceTypeList" name="serviceType_{{$index}}" model="item.serviceType" required="true"></nwook-dropdown>
-                        <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Free/Paid.</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-item col-lg-3">
-                        <div class="help-text">Min quantity (optional)</div>
-                        <input type="text" ng-model="item.minQty" />
-                    </div>
-
-                    <div class="form-item col-lg-3">
-                        <div class="help-text">Max quantity (optional)</div>
-                        <input type="text" />
-                    </div>
-                    <div class="form-item col-lg-3" ng-show="item.convertToSubAddon" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.subAddOnPricing_{{$index}}.$error.required)}">
-                        <div class="help-text">Sub add-on pricing</div>
-                        <input type="text" name="subAddOnPricing_{{$index}}" ng-model="item.subAddOnPricing" ng-required="item.convertToSubAddon" />
-                        <div class="error" ng-show="spaceForm.$submitted && spaceForm.subAddOnPricing_{{$index}}.$error.required">Please enter sub add-on pricing.</div>
-                    </div>
-                    <div class="form-item col-lg-3" ng-show="item.convertToSubAddon" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnHours_{{$index}}.$error.required)}">
-                        <div class="help-text">Hours</div>
-                        <input type="text" name="addOnHours_{{$index}}" ng-model="item.addOnHours" ng-required="item.convertToSubAddon" />
-                        <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnHours_{{$index}}.$error.required">Please enter hours.</div>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <input type="checkbox" name="convertToSubAddon" ng-model="item.convertToSubAddon">
-                        <label class="input-label">Convert to sub add on</label>
-                    </div>
+                <div class="col-lg-4 packageName">
+                    <input type="text" placeholder="Package Name" name="packageName" ng-model="item.packageName"/>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 form-item">
-                    <button type="button" ng-click="createAddon('configAddOn', $index)" class="button btn-green-plain btn-round"><span class="fa-plus"></span> Create another</button>
+                <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.configurationName_{{$index}}.$error.required)}">
+                    <div class="help-text">Name</div>
+                    <input type="text" name="configurationName_{{$index}}" ng-model="item.hourRate" required />
+                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.configurationName_{{$index}}.$error.required">Please enter name.</div>
                 </div>
-                <div class="col-lg-8 form-item text-right" ng-hide="item.hideAddOnSave">
-                    <button type="button" class="button btn-small btn-green-plain" ng-click="cancelAddon()">CANCEL</button>
-                    <button type="button" class="button btn-small btn-green" ng-click="saveAddOn('configAddOn', $index)">SAVE</button>
+
+                <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.hour_{{$index}}.$error.required)}">
+                    <div class="help-text">hour</div>
+                    <input type="text" name="hour_{{$index}}" ng-model="item.hour" required />
+                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.hour_{{$index}}.$error.required">Please enter hour.</div>
+                </div>
+                <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && (spaceForm.price_{{$index}}.$error.required || spaceForm.discountPerUnit_{{$index}}.$error.required))}">
+                    <div class="help-text">discount per unit/hour</div>
+                    <nwook-input-dropdown id="discountPerUnit" dropdown-items="discountUnit" dropdown-name="discountPerUnit_{{$index}}" dropdown-model="item.discountUnit" input-name="discount_{{$index}}" input-model="item.discount" required="true"></nwook-input-dropdown>
+                    <div class="error" ng-show="spaceForm.$submitted && (spaceForm.discountPerUnit_{{$index}}.$error.required || spaceForm.discount_{{$index}}.$error.required)">Please enter discount Per unit/hour.</div>
+                </div>
+                <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.validity_{{$index}}.$error.required)}">
+                    <div class="help-text">Validity</div>
+                    <nwook-dropdown id="serviceType" items="serviceTypeList" name="validity_{{$index}}" model="item.validity" required="true"></nwook-dropdown>
+                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.validity_{{$index}}.$error.required">Please select validity.</div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-        <div class="form-item col-xs-4">
-            <div class="label">Total Inventory</div>
-            <div class="help-text">Enter no. of available units of all packages</div>
-            <nwook-counter name="totalInventory" model="item.totalInventory" unit="" default-val="0" min="0" max="" step="1"></nwook-counter>
-        </div>
-        </div>
-</div>
-<div class="row">
-    <div class="col-lg-12 form-item">
-        <button type="button" ng-click="createAnotherPackage()" class="button btn-green-plain btn-round"><span class="fa-plus"></span> + Click to insert another package</button>
+            <div class="row">
+                <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.planTag_{{$index}}.$error.required)}">
+                    <div class="help-text">Plan Tag Text</div>
+                    <input type="text" name="planTag_{{$index}}" ng-model="item.planTag"  />
+                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.planTag_{{$index}}.$error.required">Please enter sub add-on pricing.</div>
+                </div>
+                <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.offerText_{{$index}}.$error.required)}">
+                    <div class="help-text">Offer Text</div>
+                    <input type="text" name="offerText_{{$index}}" ng-model="item.offerText"  />
+                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.offerText_{{$index}}.$error.required">Please enter hours.</div>
+                </div>
+                <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.planTag_{{$index}}.$error.required)}">
+                    
+                </div>
+                <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.offerText_{{$index}}.$error.required)}">
+                    <div class="help-text">Expires On</div>
+                    <input type="text" name="offerText_{{$index}}" ng-model="item.expireOn"  />
+                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.offerText_{{$index}}.$error.required">Please enter hours.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-item col-lg-5" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.selectAddOn.$error.required && formData.configuration.selectAddOn.length <= 0)}">
+                    <div class="label"></div>
+                    <div class="help-text">Select add-ons</div>
+                    <nwook-filter-dropdown id="selectAddOnDropdown" items="selectAddOnList" name="selectAddOn" model="item.selectAddOn" required="true"></nwook-filter-dropdown>
+                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.selectAddOn.$error.required && formData.configuration.selectAddOn.length <= 0">Please select associated category.</div>
+                </div>
+            </div>
+            <br/>
+            <div class="group-title">Create an add-on</div>
+            <div class="tags-container addOnTag">
+                <div class="row">
+                    <div class="col-xs-2 padding0 ng-scope" ng-repeat="addOn in item.addonList | filter: {saved: true}">
+                        <button type="button" class="button btn-round btn-green ng-binding">{{item.addonList[$index].addOnName}}</button>
+                        <span class="deleteAddon" ng-click="$parent.deleteAddOn(addOn, 'configAddOn', $index)">x</span>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="addon-container">
+                <div class="wrapper" ng-repeat="item in item.addonList | filter: {saved: false}"> 
+                    <div class="row">
+                        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnName_{{$index}}.$error.required)}">
+                            <div class="help-text">Name</div>
+                            <input type="text" name="addOnName_{{$index}}" ng-model="item.addOnName" required />
+                            <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnName_{{$index}}.$error.required">Please enter name.</div>
+                        </div>
+
+                        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.inventory_{{$index}}.$error.required)}">
+                            <div class="help-text">Inventory</div>
+                            <input type="text" name="inventory_{{$index}}" ng-model="item.inventory" required />
+                            <div class="error" ng-show="spaceForm.$submitted && spaceForm.inventory_{{$index}}.$error.required">Please enter Inventory.</div>
+                        </div>
+                        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && (spaceForm.price_{{$index}}.$error.required || spaceForm.pricePerUnit_{{$index}}.$error.required))}">
+                            <div class="help-text">Price per unit/hour</div>
+                            <nwook-input-dropdown id="pricePerUnit" dropdown-items="priceUnits" dropdown-name="pricePerUnit_{{$index}}" dropdown-model="item.priceUnit" input-name="price_{{$index}}" input-model="item.price" required="true"></nwook-input-dropdown>
+                            <div class="error" ng-show="spaceForm.$submitted && (spaceForm.pricePerUnit_{{$index}}.$error.required || spaceForm.price_{{$index}}.$error.required)">Please enter Price Per unit/hour.</div>
+                        </div>
+                        <div class="form-item col-lg-3" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required)}">
+                            <div class="help-text">Free or paid</div>
+                            <nwook-dropdown id="serviceType" items="serviceTypeList" name="serviceType_{{$index}}" model="item.serviceType" required="true"></nwook-dropdown>
+                            <div class="error" ng-show="spaceForm.$submitted && spaceForm.serviceType_{{$index}}.$error.required">Please select Free/Paid.</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-item col-lg-3">
+                            <div class="help-text">Min quantity (optional)</div>
+                            <input type="text" ng-model="item.minQty" />
+                        </div>
+
+                        <div class="form-item col-lg-3">
+                            <div class="help-text">Max quantity (optional)</div>
+                            <input type="text" />
+                        </div>
+                        <div class="form-item col-lg-3" ng-show="item.convertToSubAddon" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.subAddOnPricing_{{$index}}.$error.required)}">
+                            <div class="help-text">Sub add-on pricing</div>
+                            <input type="text" name="subAddOnPricing_{{$index}}" ng-model="item.subAddOnPricing" ng-required="item.convertToSubAddon" />
+                            <div class="error" ng-show="spaceForm.$submitted && spaceForm.subAddOnPricing_{{$index}}.$error.required">Please enter sub add-on pricing.</div>
+                        </div>
+                        <div class="form-item col-lg-3" ng-show="item.convertToSubAddon" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.addOnHours_{{$index}}.$error.required)}">
+                            <div class="help-text">Hours</div>
+                            <input type="text" name="addOnHours_{{$index}}" ng-model="item.addOnHours" ng-required="item.convertToSubAddon" />
+                            <div class="error" ng-show="spaceForm.$submitted && spaceForm.addOnHours_{{$index}}.$error.required">Please enter hours.</div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input type="checkbox" name="convertToSubAddon" ng-model="item.convertToSubAddon">
+                            <label class="input-label">Convert to sub add on</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 form-item">
+                        <button type="button" ng-click="createAddon('configAddOn', $index)" class="button btn-green-plain btn-round"><span class="fa-plus"></span> Create another</button>
+                    </div>
+                    <div class="col-lg-8 form-item text-right" ng-hide="item.hideAddOnSave">
+                        <button type="button" class="button btn-small btn-green-plain" ng-click="cancelAddon()">CANCEL</button>
+                        <button type="button" class="button btn-small btn-green" ng-click="saveAddOn('configAddOn', $index)">SAVE</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="form-item col-xs-4">
+                <div class="label">Total Inventory</div>
+                <div class="help-text">Enter no. of available units of all packages</div>
+                <nwook-counter name="totalInventory" model="item.totalInventory" unit="" default-val="0" min="0" max="" step="1"></nwook-counter>
+            </div>
+            </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12 form-item">
+            <button type="button" ng-click="createAnotherPackage()" class="button btn-green-plain btn-round"><span class="fa-plus"></span> + Click to insert another package</button>
+        </div>
+    </div>
+</div>
+<div ng-show="enableAdon" class="enableAdon">
+    <h2>Enable space as an add on?</h2>
+
+    <div class="switch-container">
+        <span class="input-label">Yes</span>
+        <label class="switch">
+            <input type="checkbox" ng-model="formData.configurations.enableSpace">
+            <span class="slider round"></span>
+        </label>
+        <span class="input-label">No</span>
+    </div>
+    {{formData.configurations.enableSpace}}
+    <div class="formEnableSpace">
+    <div class="row">
+    <div class="form-item col-lg-6">
+        <label>Choose a space</label>
+        <nwook-dropdown id="spaceSelector" disabled="formData.configurations.enableSpace" items="monthList" defaultValue='select' model="formData.configurations.selectSpace"></nwook-dropdown>
+        <div class="error" ng-show="timingError.month">Please select month</div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="form-item col-lg-6">
+        <label>Price</label>
+        <div class="">
+            <input type="text" ng-disabled="formData.configurations.enableSpace" class="" ng-model="formData.configurations.price">
+            <div class="error" ng-show="timingError.price">Please select price</div>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="form-item col-lg-6">
+        <label>No of hours</label>
+        <div class="">
+            <input type="text" class="" ng-disabled="formData.configurations.enableSpace" ng-model="formData.configurations.noOfHours">
+            <div class="error" ng-show="timingError.noOfHours">Please select price</div>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="form-item col-lg-6">
+        <label>Quantity</label>
+        <div class="">
+            <input type="text" class=""  ng-disabled="formData.configurations.enableSpace" ng-model="formData.configurations.quantity">
+            <div class="error" ng-show="timingError.quantity">Please select Quantity</div>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+
+<div class="dedicatedSeatConfig" ng-show="dedicatedSeatEnable">
+    <h2>Dedicated Seat Configuration</h2>
+        <div ng-repeat="item in formData.configuration.dedicatedSeatConfig">
+            <div class="row">
+                <div class="form-item col-lg-4">
+                    <div class="label">Monthly Pricing</div>
+                    <div class="help-text">Enter the amount in Indian rupees</div>
+                    <input type="text" name="monthly_Pricing_{{$index}}" ng-model="item.monthly_Pricing" />
+                </div>
+
+                <div class="form-item col-lg-4">
+                    <div class="label">Inventory</div>
+                    <div class="help-text">Enter total unit of space available</div>
+                    <input type="text" name="hour{{$index}}" ng-model="item.inventory" />                    
+                </div>
+            </div>
+            <div class="row configDiscountTable">
+                <div class="form-item col-lg-12">
+                    
+                    <div class="label">
+                        Enter discount % for applicable plans ( leave blank for NA) 
+                    </div>
+                    <table>
+                        <thead>
+                            <th class="help-text">1 month</th>
+                            <th class="help-text">3 month</th>
+                            <th class="help-text">6 month</th>
+                            <th class="help-text">12 month</th>
+                        </thead>
+                        <tbody>
+                            <td>
+                                <input type="text" ng-model="item.dicountOneMonth" />
+                            </td>
+                            <td>
+                                <input type="text" ng-model="item.dicountThreeMonth" />
+                            </td>
+                            <td>
+                                <input type="text" ng-model="item.dicountSixMonth" />
+                            </td>
+                            <td>
+                                <input type="text" ng-model="item.dicountTwelveMonth" />
+                            </td>
+                        </tbody>
+                    </table>
+                
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-item col-lg-5">
+                    <div class="label"></div>
+                    <div class="help-text">Select add-ons</div>
+                    <nwook-filter-dropdown id="selectAddOnDropdown" items="selectAddOnList" name="selectAddOn{{$index}}" model="item.selectAddOn"></nwook-filter-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 form-item">
+                <button type="button" ng-click="createAnotherConfig()" class="button btn-green-plain btn-round"><span class="fa-plus"></span> Create another</button>
+            </div>
+        </div>
 </div>
