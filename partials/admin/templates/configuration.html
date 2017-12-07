@@ -1,4 +1,4 @@
-<div class="configurationPackage" ng-show="packageConfigEnable">
+<div class="configurationPackage" ng-if="packageConfigEnable">
     <h2>Package Configuration</h2>
     <div  class="wrapper" ng-repeat="item in formData.configuration.packageConfigList"> 
             <div class="row">
@@ -50,11 +50,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-item col-lg-5" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.selectAddOn.$error.required && formData.configuration.selectAddOn.length <= 0)}">
+                <div class="form-item col-lg-5" ng-class="{'fieldError': (spaceForm.$submitted &&  item.selectAddOn.length <= 0)}">
                     <div class="label"></div>
                     <div class="help-text">Select add-ons</div>
-                    <nwook-filter-dropdown id="selectAddOnDropdown" items="selectAddOnList" name="selectAddOn" model="item.selectAddOn" required="true"></nwook-filter-dropdown>
-                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.selectAddOn.$error.required && formData.configuration.selectAddOn.length <= 0">Please select associated category.</div>
+                    <nwook-filter-dropdown id="selectAddOnDropdown" items="selectAddOnList" name="selectAddOn{{$index}}" model="item.selectAddOn" required="true"></nwook-filter-dropdown>
+                    <div class="error" ng-show="spaceForm.$submitted &&  item.selectAddOn.length <= 0">Please select associated category.</div>
                 </div>
             </div>
             <br/>
@@ -146,13 +146,13 @@
         </div>
     </div>
 </div>
-<div ng-show="enableAdon" class="enableAdon">
+<div ng-if="enableAdon" class="enableAdon">
     <h2>Enable space as an add on?</h2>
 
     <div class="switch-container">
         <span class="input-label">Yes</span>
         <label class="switch">
-            <input type="checkbox" ng-model="formData.configurations.enableSpace">
+            <input type="checkbox" ng-model="formData.configuration.enableSpaceAsAdon.enableSpace">
             <span class="slider round"></span>
         </label>
         <span class="input-label">No</span>
@@ -162,7 +162,7 @@
     <div class="row">
     <div class="form-item col-lg-6">
         <label>Choose a space</label>
-        <nwook-dropdown id="spaceSelector" disabled="formData.configurations.enableSpace" items="monthList" defaultValue='select' model="formData.configurations.selectSpace"></nwook-dropdown>
+        <nwook-dropdown id="spaceSelector" disabled="formData.configuration.enableSpaceAsAdon.enableSpace" items="monthList" defaultValue='select' model="formData.configurations.selectSpace"></nwook-dropdown>
         <div class="error" ng-show="timingError.month">Please select month</div>
     </div>
     </div>
@@ -170,7 +170,7 @@
     <div class="form-item col-lg-6">
         <label>Price</label>
         <div class="">
-            <input type="text" ng-disabled="formData.configurations.enableSpace" class="" ng-model="formData.configurations.price">
+            <input type="text" ng-disabled="formData.configurations.enableSpace" class="" ng-model="formData.configuration.enableSpaceAsAdon.price">
             <div class="error" ng-show="timingError.price">Please select price</div>
         </div>
     </div>
@@ -179,7 +179,7 @@
     <div class="form-item col-lg-6">
         <label>No of hours</label>
         <div class="">
-            <input type="text" class="" ng-disabled="formData.configurations.enableSpace" ng-model="formData.configurations.noOfHours">
+            <input type="text" class="" ng-disabled="formData.configurations.enableSpace" ng-model="formData.configuration.enableSpaceAsAdon.noOfHours">
             <div class="error" ng-show="timingError.noOfHours">Please select price</div>
         </div>
     </div>
@@ -188,7 +188,7 @@
     <div class="form-item col-lg-6">
         <label>Quantity</label>
         <div class="">
-            <input type="text" class=""  ng-disabled="formData.configurations.enableSpace" ng-model="formData.configurations.quantity">
+            <input type="text" class=""  ng-disabled="formData.configurations.enableSpace" ng-model="formData.configuration.enableSpaceAsAdon.quantity">
             <div class="error" ng-show="timingError.quantity">Please select Quantity</div>
         </div>
     </div>
@@ -196,20 +196,23 @@
     </div>
 </div>
 
-<div class="dedicatedSeatConfig" ng-show="dedicatedSeatEnable">
+<div class="dedicatedSeatConfig" ng-if="dedicatedSeatEnable">
     <h2>Dedicated Seat Configuration</h2>
         <div ng-repeat="item in formData.configuration.dedicatedSeatConfig">
             <div class="row">
-                <div class="form-item col-lg-4">
+                <div class="form-item col-lg-4" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.monthly_Pricing_{{$index}}.$error.required)}">
                     <div class="label">Monthly Pricing</div>
                     <div class="help-text">Enter the amount in Indian rupees</div>
                     <input type="text" name="monthly_Pricing_{{$index}}" ng-model="item.monthly_Pricing" />
+                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.monthly_Pricing_{{$index}}.$error.required">Please enter amount.</div>
                 </div>
 
-                <div class="form-item col-lg-4">
+                <div class="form-item col-lg-4" ng-class="{'fieldError': (spaceForm.$submitted && spaceForm.hour{{$index}}.$error.required)}">
                     <div class="label">Inventory</div>
                     <div class="help-text">Enter total unit of space available</div>
-                    <input type="text" name="hour{{$index}}" ng-model="item.inventory" />                    
+                    <input type="text" name="hour{{$index}}" ng-model="item.inventory" /> 
+                    <div class="error" ng-show="spaceForm.$submitted && spaceForm.hour{{$index}}.$error.required">Please enter total space available.</div>
+                                   
                 </div>
             </div>
             <div class="row configDiscountTable">
@@ -244,10 +247,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-item col-lg-5">
+                <div class="form-item col-lg-5" ng-class="{'fieldError': (spaceForm.$submitted && item.selectAddOn.length <= 0)}">
                     <div class="label"></div>
                     <div class="help-text">Select add-ons</div>
                     <nwook-filter-dropdown id="selectAddOnDropdown" items="selectAddOnList" name="selectAddOn{{$index}}" model="item.selectAddOn"></nwook-filter-dropdown>
+                    <div class="error" ng-show="spaceForm.$submitted && item.selectAddOn.length <= 0">Select Addon.</div>
                 </div>
             </div>
         </div>
