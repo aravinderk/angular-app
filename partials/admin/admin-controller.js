@@ -29,14 +29,16 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 				$scope.dedicatedSeatEnable = false;
 			}
 			if($scope.pageIndex == 4){
-				$scope.packageConfigEnable = false;
-				if(!$scope.enableAdon){
-					$scope.enableAdon = true;
-				}else{
-					$scope.enableAdon = false;
-					$scope.dedicatedSeatEnable = true;
-				}
+				if(!$scope.dedicatedSeatEnable){
+					$scope.packageConfigEnable = false;
+					if(!$scope.enableAdon){
+						$scope.enableAdon = true;
+					}else{
+						$scope.enableAdon = false;
+						$scope.dedicatedSeatEnable = true;
+					}
 				return;
+				}
 			}
 			$scope.pageIndex++;
 			$scope.spaceForm.$submitted = false;
@@ -425,8 +427,11 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 				}], 
 				dedicatedSeatConfig:[{
 						selectAddOn: []
-					}]
-				},
+				}],
+				enableSpaceAsAdon:{
+
+				}
+			},
 			timings: {scheduleSlots:[{"startTime":'', "endTime":''}],dates:{"slots":[]}, holidayList: [], selectedDaysList:[], slotObj:[]},
 			policies: {},
 			promotions: {}
