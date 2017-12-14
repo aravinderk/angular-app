@@ -234,7 +234,7 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 			$scope.endTimeShow = !$scope.endTimeShow;
 		}
 	}
-	function selectSlot(slotTime, slotType) {
+	function selectSlot(slotTime, slotType, page) {
 		var isValid = false;
 		var slotObj = {};
 		if(slotType == 'startTime'){
@@ -256,7 +256,13 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 				"startTime": $scope.formData.timings.startTime,
 				"endTime": $scope.formData.timings.endTime
 			}
-			$scope.formData.timings.dates.slots.push(slotObj)
+			var updateObj = {};
+			if(page == 'summary'){
+				updateObj = $scope.editScope.slots
+			}else{
+				updateObj = $scope.formData.timings.dates.slots
+			}
+			updateObj.push(slotObj);
 			$scope.formData.timings.startTime = undefined;
 			$scope.formData.timings.endTime = undefined;
 		}
@@ -286,10 +292,16 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 			}
 		});
 	}
-	function deleteSlot(slot){
-		angular.forEach($scope.formData.timings.dates.slots, function(item, index){
+	function deleteSlot(slot, page){
+		var deleteObj;
+		if(page == 'summary'){
+			deleteObj = $scope.editScope.slots
+		}else{
+			deleteObj = $scope.formData.timings.dates.slots
+		}
+		angular.forEach(deleteObj, function(item, index){
 			if(item.$$hashKey == slot.$$hashKey){
-				$scope.formData.timings.dates.slots.splice(index, 1)
+				deleteObj.splice(index, 1)
 			}
 		})
 	}
@@ -345,6 +357,24 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 						selectAddOn: []
 					})
 	}
+	function editSummary(params) {
+		if(params.slots == undefined){
+			params.slots = []
+		}
+		if(params.scheduleSlots ==  undefined){
+			params.scheduleSlots = [{"startTime":'', "endTime":''}];
+		}
+		$scope.editScope = params 
+	}
+	function deleteDayInSummary(day){
+		var index = $scope.editScope.days.indexOf(day)
+		$scope.editScope.days.splice(index, 1)
+	}
+	$scope.$watch('editScope.selectedDays', function(newVal, oldVal){
+		if ($scope.editScope.days != undefined && newVal !== undefined && newVal !== oldVal && $scope.editScope.days.indexOf(newVal) <= -1) {
+			$scope.editScope.days.push(newVal)
+		}
+	});
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -388,6 +418,8 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		$scope.deleteDay = deleteDay;
 		$scope.createAnotherPackage = createAnotherPackage;
 		$scope.createAnotherConfig = createAnotherConfig;
+		$scope.editSummary = editSummary;
+		$scope.deleteDayInSummary = deleteDayInSummary
 		// $scope.bookSlot = bookSlot;
 		// $scope.saveSlot = saveSlot;
 		//$scope.updateDate = updateDate;
@@ -401,6 +433,8 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		$scope.monthList = AdminService.getMonths();
 		$scope.weekDayList = AdminService.getDays();
 		$scope.selectAddOnList = AdminService.getAddOnList()
+		$scope.getAssetList = AdminService.getAssestStatus()
+		$scope.editScope = {scheduleSlots:[{"startTime":'', "endTime":''}],slots:[]};
 		$scope.cityList = [];
 		$scope.imageUrls = [];
 		$scope.pageIndex = $scope.routes.indexOf($state.current.name) || 0;
@@ -434,7 +468,8 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 			},
 			timings: {scheduleSlots:[{"startTime":'', "endTime":''}],dates:{"slots":[]}, holidayList: [], selectedDaysList:[], slotObj:[]},
 			policies: {},
-			promotions: {}
+			promotions: {},
+			timingUpdate : $scope.getAssetList
 		};
 		$scope.tooltipStartTime = '';
 		$scope.tooltipEndTime = '';
