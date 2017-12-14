@@ -19,7 +19,8 @@ function AdminService($http){
         getMonths: getMonths,
         getDays: getDays,
         getDiscountUnit: getDiscountUnit,
-        getAddOnList: getAddOnList
+        getAddOnList: getAddOnList,
+        getAssestStatus: getAssestStatus
     }
 
     function getStatusMenuItems () {
@@ -32,6 +33,7 @@ function AdminService($http){
 			{title: 'ITR'},
 			{title: 'Policies'},
 			{title: 'Promotions'},
+            {title: 'Summary'},
 			{title: 'Complete!'}
         ];
     }
@@ -46,10 +48,42 @@ function AdminService($http){
             'admin.timings',
             'admin.policies',
             'admin.promotions',
+            'admin.summary',
             'admin.complete'
         ];
     }
-
+    function getAssestStatus(params) {
+        return [
+            {
+                id: 1234566,
+                availableSeat: 50,
+                totalSeats: 55,
+                days:["mon","tue"],
+                slots:[
+                    {
+                        startTime:'2:00',
+                        endTime: '3:00'
+                    }
+                ] ,
+                currentDate: '13/12/2017',
+                bufferTime: '5hr'
+            },
+            {
+                id: 12345,
+                availableSeat: 34,
+                totalSeats: 55,
+                days:["mon"],
+                slots:[
+                    {
+                        startTime:'2:00',
+                        endTime: '3:00'
+                    }
+                ] ,
+                currennotDate: '13/12/2017',
+                bufferTime: '5hr'
+            }
+        ]
+    }
     function getLeftMenuItems () {
         return [
             {icon: '../../images/plus-sign.png', title: 'Add a space', helpText: 'Add a new space'},
