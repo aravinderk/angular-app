@@ -41,6 +41,9 @@ angular.module('nwookManager', ['ui.router', 'AdminModule'])
         .state('admin.promotions', {
             url: '/promotions',
             templateUrl: './partials/admin/templates/promotions.html'
+        }).state('admin.summary', {
+            url: '/summary',
+            templateUrl: './partials/admin/templates/seatAvailabilityView.html'
         })
         .state('admin.complete', {
             url: '/complete',
