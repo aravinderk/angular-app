@@ -375,6 +375,19 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 			$scope.editScope.days.push(newVal)
 		}
 	});
+	$scope.$watch('formData.timings.days', function(newVal, oldVal){
+		if(newVal == 'monsat'){
+			$scope.formData.timings.selectedDaysList = []
+			$scope.formData.timings.selectedDaysList = [
+				'mon',
+				'tue',
+				'wed',
+				'thus',
+				'fri',
+				'sat',
+				'sun'			]
+		}
+	})
 	$scope.$watch('formData.engineInfo.rooms', function (newValue, oldValue) {
 		if (newValue !== oldValue) {
 			$scope.formData.engineInfo.seats = oldValue;
@@ -392,8 +405,26 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 		$scope.formData.timings.holidayList.push(newValue);
 	})
 	$scope.$watch('formData.timings.days', function(newVal, oldVal){
-		if(newVal != 'select' && newVal !== undefined && $scope.formData.timings.selectedDaysList.indexOf(newVal) == -1)
+		if(newVal != 'select' && newVal !== undefined && $scope.formData.timings.selectedDaysList.indexOf(newVal) == -1 && newVal !== 'monsat')
 		$scope.formData.timings.selectedDaysList.push(newVal);
+	})
+	$scope.$watch('formData.engineInfo.byTheHour', function(newVal, oldVal){
+		if(newVal){
+			$scope.formData.engineInfo.dedicated = false
+			$scope.formData.engineInfo.packages = false
+		}
+	})
+	$scope.$watch('formData.engineInfo.dedicated', function(newVal, oldVal){
+		if(newVal){
+			$scope.formData.engineInfo.byTheHour = false
+			$scope.formData.engineInfo.packages = false
+		}
+	})
+	$scope.$watch('formData.engineInfo.packages', function(newVal, oldVal){
+		if(newVal){
+			$scope.formData.engineInfo.dedicated = false
+			$scope.formData.engineInfo.byTheHour = false
+		}
 	})
 	function initController () {
 		// Functions in $scope
@@ -453,7 +484,14 @@ function AdminController($scope, AdminService, $state, $timeout, $transitions){
 			basicInfo: {},
 			facilityAndTags: {facilities: [], associatedCategory: [], images: []},
 			addOns: {addonList:[{saved: false}], savedAddonList: []},
-			engineInfo: {rooms: true, seats: false, dedicated: true},
+			engineInfo: {
+				rooms: true, 
+				seats: false, 
+				dedicated: true,
+				byTheHour: true,
+				dedicated: false,
+				packages: false
+			},
 			configuration: {
 				packageConfigList:[{
 					selectAddOn: [], 

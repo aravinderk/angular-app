@@ -143,6 +143,7 @@ function AdminService($http){
     function getDays () {
         return [
             {id:'select', name: 'Select'},
+            {id:'monsat', name: 'Mon-Sat'},
             {id: 'mon', name:'Monday'},
             {id: 'tue', name:'Tuesday'},
             {id: 'wed', name:'Wednesday'},
